@@ -57,6 +57,9 @@
 			children = (
 				6487C1F62ABD982700DF8963 /* Car_Heart_It_iOSApp.swift */,
 				6487C1F82ABD982700DF8963 /* ContentView.swift */,
+				6487C2092ABD9E3300DF8963 /* Model */,
+				6487C20A2ABD9E3A00DF8963 /* ViewModel */,
+				6487C20B2ABD9E4600DF8963 /* View */,
 				6487C1FA2ABD982B00DF8963 /* Assets.xcassets */,
 				6487C1FF2ABD982B00DF8963 /* Persistence.swift */,
 				6487C2012ABD982B00DF8963 /* Car_Heart_It_iOS.xcdatamodeld */,
@@ -71,6 +74,27 @@
 				6487C1FD2ABD982B00DF8963 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6487C2092ABD9E3300DF8963 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6487C20A2ABD9E3A00DF8963 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6487C20B2ABD9E4600DF8963 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
