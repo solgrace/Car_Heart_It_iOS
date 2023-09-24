@@ -10,7 +10,28 @@ import CoreData
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            VStack {
+                NavigationLink(destination: LoginView()) {
+                    Text("Log In")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
+                
+                NavigationLink(destination: SignupView()) {
+                    Text("Sign Up")
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
+            }
+            .navigationTitle("Welcome")
+        }
     }
 }
 
@@ -19,3 +40,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
