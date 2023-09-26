@@ -11,37 +11,45 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var loginError = ""
+    @State private var isLogged = false // Track login status
     
-    // Create an instance of SignupViewModel
+    // Create an instance of LoginViewModel
     let loginViewModel = LoginViewModel()
     
     var body: some View {
-        VStack {
-            Text("Login")
-                .font(.largeTitle)
-                .padding()
-
-            TextField("Email", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            SecureField("Password", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            Button(action: {
-                // Call your login logic here using LoginViewModel
-                login()
-            }) {
+        NavigationView { // Wrap your view in a NavigationView
+            VStack {
                 Text("Login")
+                    .font(.largeTitle)
+                    .padding()
+                
+                TextField("Email", text: $email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                SecureField("Password", text: $password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                Button(action: {
+                    // Call your login logic here using LoginViewModel
+                    login()
+                }) {
+                    Text("Login")
+                }
+                .padding()
+                
+                Text(loginError)
+                    .foregroundColor(.red)
+                    .padding()
+                
+                // Use NavigationLink to navigate to CarRentalMapView when logged in
+                NavigationLink(destination: CarRentalMapView(), isActive: $isLogged) {
+                    EmptyView()
+                }
             }
             .padding()
-
-            Text(loginError)
-                .foregroundColor(.red)
-                .padding()
         }
-        .padding()
     }
     
     // Function to call the signup logic from SignupViewModel
@@ -50,12 +58,17 @@ struct LoginView: View {
             if success {
                 // Login was successful
                 print("Login successful from LoginView")
+                
+                // Set isLogged to true to trigger navigation
+                isLogged = true
+                
                 // You can navigate to another view or perform any other action here
             } else {
                 // Login failed, display an error message
                 loginError = errorMessage ?? "Login failed"
             }
         }
+        
     }
     
 }
