@@ -9,13 +9,91 @@ import SwiftUI
 import MapboxMaps
 import CoreLocation
 
-// CORRECT VERSION. THE VERSION THAT IS CAPABLE OF LOCATING REAL-TIME LOCATION IF RUN ON A REAL DEVICE. SADLY SIMULATORS DOES NOT HAVE THIS CAPABILITY
+//// CORRECT VERSION. THE VERSION THAT IS CAPABLE OF LOCATING REAL-TIME LOCATION IF RUN ON A REAL DEVICE. SADLY SIMULATORS DOES NOT HAVE THIS CAPABILITY
+//struct CarRentalMapView: View {
+//    @StateObject var locationManager = LocationManager()
+//
+//    var body: some View {
+//        NavigationView {
+//            VStack {
+//                MapViewContainer(userLocation: $locationManager.userLocation)
+//                    .onAppear {
+//                        // Check the authorization status before requesting location updates
+//                        if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
+//                            locationManager.startUpdatingLocation()
+//                        } else {
+//                            // Handle other cases as needed
+//                        }
+//                    }
+//                    .onReceive(locationManager.$userLocation) { newUserLocation in
+//                        // Handle user location updates here, e.g., update the map
+//                        // newUserLocation contains the updated user location
+//                    }
+//
+//                if let userLocation = locationManager.userLocation {
+//                    Text("Latitude: \(userLocation.latitude), Longitude: \(userLocation.longitude)")
+//                } else {
+//                    Text("Waiting for location...")
+//                }
+//            }
+//            .padding()
+//        }
+//        .navigationBarBackButtonHidden(true)
+//    }
+//}
+
+
+
+
+
+//// THE VERSION OF MANUALLY SETTING INITIAL LOCATION TO UTS.
+//struct CarRentalMapView: View {
+//    @StateObject var locationManager = LocationManager()
+//
+//    var body: some View {
+//        NavigationView {
+//            VStack {
+//                MapViewContainer()
+//                    .onAppear {
+//                        // Check the authorization status before requesting location updates
+//                        if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
+//                            locationManager.startUpdatingLocation()
+//                        } else {
+//                            // Handle other cases as needed
+//                        }
+//                    }
+//                    .onReceive(locationManager.$userLocation) { newUserLocation in
+//                        // Handle user location updates here, e.g., update the map
+//                        // newUserLocation contains the updated user location
+//                    }
+//
+//                if let userLocation = locationManager.userLocation {
+//                    Text("Latitude: \(userLocation.latitude), Longitude: \(userLocation.longitude)")
+//                } else {
+//                    Text("Waiting for location...")
+//                }
+//            }
+//            .padding()
+//        }
+//        .navigationBarBackButtonHidden(true)
+//    }
+//}
+
+
+
+
+
+// THE VERSION OF USING MAPBOX TP DETECT MY LOCATION
 struct CarRentalMapView: View {
-    @StateObject var locationManager = LocationManager()
+    // Remove @StateObject for locationManager
+    // @StateObject var locationManager = LocationManager()
+
+    @ObservedObject var locationManager = LocationManager() // Use @ObservedObject
 
     var body: some View {
         NavigationView {
             VStack {
+                // Pass the userLocation binding to MapViewContainer
                 MapViewContainer(userLocation: $locationManager.userLocation)
                     .onAppear {
                         // Check the authorization status before requesting location updates
