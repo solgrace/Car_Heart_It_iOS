@@ -128,6 +128,7 @@ import _MapKit_SwiftUI
 
 
 //// RENDERING EVENTS AS LISTS
+////BEFORE CORRECT VERSION
 //struct CarRentalMapView: View {
 //    @ObservedObject var locationManager = LocationManager()
 //    @State private var events: [EventData] = [] // Store the retrieved events
@@ -194,7 +195,7 @@ import _MapKit_SwiftUI
 
 
 
-// RENDERING EVENTS AS ANNOTATIONS ON MAP
+// RENDERING EVENTS AS ANNOTATIONS ON MAP (CONTINUE WORKING BELOW)
 struct CarRentalMapView: View {
     @ObservedObject var locationManager = LocationManager()
     @State private var events: [EventData] = [] // Store the retrieved events
@@ -203,7 +204,7 @@ struct CarRentalMapView: View {
     var body: some View {
         NavigationView {
             VStack {
-                MapViewContainer(userLocation: $locationManager.userLocation, annotations: createAnnotationsFromEvents(events: events))
+                MapViewContainer(userLocation: $locationManager.userLocation, events: events)
                     .onAppear {
                         // Check the authorization status before requesting location updates
                         if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
@@ -216,30 +217,18 @@ struct CarRentalMapView: View {
                         fetchEventsNearUserLocation()
                     }
 
-                if !events.isEmpty {
-                    List(events) { event in
-                        Text("Event Name: \(event.name)")
-                        // Display other event details here
-                    }
-                } else {
-                    Text("No events found near your location.")
-                }
+//                if !events.isEmpty {
+//                    List(events) { event in
+//                        Text("Event Name: \(event.name)")
+//                        // Display other event details here
+//                    }
+//                } else {
+//                    Text("No events found near your location.")
+//                }
             }
             .padding()
         }
         .navigationBarBackButtonHidden(true)
-    }
-        
-    private func createAnnotationsFromEvents(events: [EventData]) -> some View {
-        return ZStack {
-            ForEach(events, id: \.id) { event in
-                if let latitude = event.venue?.latitude,
-                   let longitude = event.venue?.longitude {
-                    MapViewAnnotation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), title: event.name)
-                        .offset(x: 0, y: -15) // Adjust the offset as needed
-                }
-            }
-        }
     }
 
     private func fetchEventsNearUserLocation() {

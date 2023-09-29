@@ -73,7 +73,8 @@
 
 
 
-// THE VERSION OF USING MAPBOX TP DETECT MY LOCATION
+//// THE VERSION OF USING MAPBOX TP DETECT MY LOCATION
+////BELOW CORRECT VERSION
 //import SwiftUI
 //import MapboxMaps
 //
@@ -108,80 +109,210 @@
 
 
 
-// THE VERSION OF USING MAPBOX TP DETECT MY LOCATION
+//// THE VERSION OF USING MAPBOX TO DETECT MY LOCATION
+//// RENDERING EVENTS AS ANNOTATIONS ON MAP (CONTINUE WORKING BELOW)
+//import SwiftUI
+//import MapboxMaps
+//
+//struct MapViewContainer: UIViewRepresentable {
+//    let accessToken = "sk.eyJ1IjoiZ3JhY2Vzb2wiLCJhIjoiY2xteng2eWF0MW5zdjJqbnRrN3dlNXVkaiJ9.xYpQiPGGe01KVlnx9Qf0_w"
+//    @Binding var userLocation: CLLocationCoordinate2D?
+//
+//    // Add a new property to store events
+//    var events: [EventData]
+//
+//    func makeUIView(context: Context) -> MapView {
+//        let resourceOptions = ResourceOptions(accessToken: accessToken)
+//        let mapInitOptions = MapInitOptions(resourceOptions: resourceOptions)
+//        let mapView = MapView(frame: UIScreen.main.bounds, mapInitOptions: mapInitOptions)
+//
+//        // Enable user location tracking
+//        mapView.location.options.puckType = .puck2D()
+//
+//        return mapView
+//    }
+//
+//    private func createSampleView(withText text: String) -> UIView {
+//        let label = UILabel()
+//        label.text = text
+//        label.font = .systemFont(ofSize: 14)
+//        label.numberOfLines = 0
+//        label.textColor = .black
+//        label.backgroundColor = .white
+//        label.textAlignment = .center
+//        return label
+//    }
+//
+//    private func addViewAnnotation(at coordinate: CLLocationCoordinate2D) {
+//        let options = ViewAnnotationOptions(
+//            geometry: Point(coordinate),
+//            width: 100,
+//            height: 40,
+//            allowOverlap: false,
+//            anchor: .center
+//        )
+//        let sampleView = createSampleView(withText: "Hello world!")
+//        try? mapView.viewAnnotations.add(sampleView, options: options)
+//    }
+//
+//    func updateUIView(_ uiView: MapView, context: Context) {
+//        // Check if we have the user's location available
+//        if let userLocation = userLocation {
+//            // Use the user's location as the center coordinate for the map
+//            let cameraOptions = CameraOptions(center: userLocation, zoom: 15)
+//            uiView.camera.ease(to: cameraOptions, duration: 1.0) { _ in
+//                // Completion handler, if needed
+//            }
+//
+//            // Use the passed events to add view annotations
+//            for event in events {
+//                // Check if venue data is available
+//                if let venue = event.venue {
+//                    // Check if venue has latitude and longitude
+//                    if let latitude = venue.latitude, let longitude = venue.longitude {
+//                        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+//                        addViewAnnotation(at: coordinate)
+//                    } else {
+//                        print("Venue data is missing latitude or longitude.")
+//                    }
+//                } else {
+//                    print("Event is missing venue data.")
+//                }
+//            }
+//        }
+//    }
+//
+//}
+
+
+
+
+
+// THE VERSION OF USING MAPBOX TO DETECT MY LOCATION
+// RENDERING EVENTS AS ANNOTATIONS ON MAP (CONTINUE WORKING BELOW)
 import SwiftUI
 import MapboxMaps
-import MapboxCommon
 
 struct MapViewContainer: UIViewRepresentable {
     let accessToken = "sk.eyJ1IjoiZ3JhY2Vzb2wiLCJhIjoiY2xteng2eWF0MW5zdjJqbnRrN3dlNXVkaiJ9.xYpQiPGGe01KVlnx9Qf0_w"
     @Binding var userLocation: CLLocationCoordinate2D?
-    var events: [EventData]
-    @State private var mapView: MapView?
     
-    func makeUIView(context: Context) -> MapboxMaps.MapView {
-        let mapView = MapboxMaps.MapView(frame: CGRect.zero, styleURL: nil)
-        mapView.delegate = context.coordinator
-        self.mapView = mapView // Store a reference to the MapView
+    // Add a new property to store events
+    var events: [EventData]
+    
+    // Use @StateObject for managing the MapViewContainer's state
+    @StateObject private var mapViewContainerState = MapViewContainerState()
+
+    func makeUIView(context: Context) -> MapView {
+        let resourceOptions = ResourceOptions(accessToken: accessToken)
+        let mapInitOptions = MapInitOptions(resourceOptions: resourceOptions)
+        let mapView = MapView(frame: UIScreen.main.bounds, mapInitOptions: mapInitOptions)
 
         // Enable user location tracking
-        mapView.showsUserLocation = true
-
-        // Set the initial center coordinate and zoom level
-        if let userLocation = userLocation {
-            let cameraOptions = CameraOptions(center: userLocation, zoom: 7)
-            mapView.camera.ease(to: cameraOptions, duration: 1.0)
-        }
+        mapView.location.options.puckType = .puck2D()
+        
+        // Pass the mapView to the state object for further use
+        mapViewContainerState.mapView = mapView
 
         return mapView
     }
+    
+    func updateUIView(_ uiView: MapView, context: Context) {
+        mapViewContainerState.updateMapView(userLocation: userLocation, events: events)
+    }
 
-    func updateUIView(_ uiView: MapboxMaps.MapView, context: Context) {
-        // Update the MapView when the user's location changes
+}
+
+
+
+// Use @StateObject for managing the state of MapViewContainer
+class MapViewContainerState: ObservableObject {
+    var mapView: MapView?
+
+//    func updateMapView(userLocation: CLLocationCoordinate2D?, events: [EventData]) {
+//        // Your update logic here using mapView
+//        guard let mapView = mapView else {
+//            print("MapView is nil.")
+//            return
+//        }
+//
+//        // Your logic to update the MapView with user location and events
+//        if let userLocation = userLocation {
+//            let cameraOptions = CameraOptions(center: userLocation, zoom: 15)
+//            mapView.camera.ease(to: cameraOptions, duration: 1.0) { _ in
+//                // Completion handler, if needed
+//            }
+//
+//            // Use the passed events to add view annotations
+//            for event in events {
+//                if let venue = event.venue, let latitude = venue.latitude, let longitude = venue.longitude {
+//                    let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+//                    addViewAnnotation(at: coordinate)
+//                } else {
+//                    print("Event is missing venue data or latitude/longitude.")
+//                }
+//            }
+//        }
+//    }
+    
+    func updateMapView(userLocation: CLLocationCoordinate2D?, events: [EventData]) {
+        guard let mapView = mapView else {
+            print("MapView is nil.")
+            return
+        }
+
+        // Clear existing annotations
+        mapView.viewAnnotations.removeAll()
+
+        // Your logic to update the MapView with user location and events
         if let userLocation = userLocation {
-            let cameraOptions = CameraOptions(center: userLocation, zoom: uiView.cameraState.zoom)
-            uiView.camera.ease(to: cameraOptions, duration: 1.0)
-        }
+            let cameraOptions = CameraOptions(center: userLocation, zoom: 15)
+            mapView.camera.ease(to: cameraOptions, duration: 1.0) { _ in
+                // Completion handler, if needed
+            }
 
-        // Clear existing annotations and add new ones from events
-        uiView.removeAnnotations(uiView.annotations ?? [])
-        addAnnotationsToMapView(uiView)
-    }
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject, MGLMapViewDelegate {
-        var parent: MapViewContainer
-
-        init(_ parent: MapViewContainer) {
-            self.parent = parent
-        }
-
-        // Implement MGLMapViewDelegate methods if needed
-    }
-
-    private func addAnnotationsToMapView(_ mapView: MapboxMaps.MapView) {
-        var markers: [MarkerAnnotation] = []
-        
-        for event in events {
-            if let latitude = event.venue?.latitude, let longitude = event.venue?.longitude {
-                // Create a marker annotation
-                let marker = MarkerAnnotation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-                
-                // Customize the marker with text and icon
-                let textElement = Element.text(text: .formatted(.value(event.name)))
-                let iconElement = Element.icon(.image(.constant(UIImage(named: "red-pin-image")!)))
-                
-                marker.element = .composite(elements: [textElement, iconElement])
-                
-                markers.append(marker)
+            // Use the passed events to add view annotations
+            for event in events {
+                if let venue = event.venue {
+                    if let latitude = venue.latitude, let longitude = venue.longitude {
+                        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                        print("!! Event Name !!: \(event.name), Latitude: \(latitude), Longitude: \(longitude)")
+                        addViewAnnotation(at: coordinate)
+                    } else {
+                        print("Event \(event.name) is missing venue data or latitude/longitude.")
+                    }
+                } else {
+                    print("Event \(event.name) is missing venue data.")
+                }
             }
         }
-        
-        // Add the marker annotations to the map
-        mapView.annotations.annotations = markers
     }
 
+    private func addViewAnnotation(at coordinate: CLLocationCoordinate2D) {
+        guard let mapView = mapView else {
+            print("MapView is nil.")
+            return
+        }
+
+        let options = ViewAnnotationOptions(
+            geometry: Point(coordinate),
+            width: 100,
+            height: 40,
+            allowOverlap: false,
+            anchor: .center
+        )
+        let sampleView = createSampleView(withText: "Hello world!")
+        try? mapView.viewAnnotations.add(sampleView, options: options)
+    }
+
+    private func createSampleView(withText text: String) -> UIView {
+        let label = UILabel()
+        label.text = text
+        label.font = .systemFont(ofSize: 14)
+        label.numberOfLines = 0
+        label.textColor = .black
+        label.backgroundColor = .white
+        label.textAlignment = .center
+        return label
+    }
 }
