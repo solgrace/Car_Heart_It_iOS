@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  Car_Heart_It_iOS
+//  Event_Heart_It_iOS
 //
 //  Created by Grace Rufina Solibun on 23/9/2023.
 //
@@ -43,8 +43,8 @@ struct LoginView: View {
                     .foregroundColor(.red)
                     .padding()
                 
-                // Use NavigationLink to navigate to CarRentalMapView when logged in
-                NavigationLink(destination: CarRentalMapView(), isActive: $isLogged) {
+                // Use NavigationLink to navigate to EventMapView when logged in
+                NavigationLink(destination: EventMapView(), isActive: $isLogged) {
                     EmptyView()
                 }
             }

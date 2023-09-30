@@ -1,6 +1,6 @@
 //
-//  CarRentalMapView.swift
-//  Car_Heart_It_iOS
+//  EventMapView.swift
+//  Event_Heart_It_iOS
 //
 //  Created by Grace Rufina Solibun on 26/9/2023.
 //
@@ -196,7 +196,7 @@ import _MapKit_SwiftUI
 
 
 // RENDERING EVENTS AS ANNOTATIONS ON MAP (CONTINUE WORKING BELOW)
-struct CarRentalMapView: View {
+struct EventMapView: View {
     @ObservedObject var locationManager = LocationManager()
     @State private var events: [EventData] = [] // Store the retrieved events
     @State private var cancellables: Set<AnyCancellable> = [] // For managing Combine subscriptions

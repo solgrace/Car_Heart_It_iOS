@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6487C1F22ABD982700DF8963"
-               BuildableName = "Car_Heart_It_iOS.app"
-               BlueprintName = "Car_Heart_It_iOS"
-               ReferencedContainer = "container:Car_Heart_It_iOS.xcodeproj">
+               BuildableName = "Event_Heart_It_iOS.app"
+               BlueprintName = "Event_Heart_It_iOS"
+               ReferencedContainer = "container:Event_Heart_It_iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6487C1F22ABD982700DF8963"
-            BuildableName = "Car_Heart_It_iOS.app"
-            BlueprintName = "Car_Heart_It_iOS"
-            ReferencedContainer = "container:Car_Heart_It_iOS.xcodeproj">
+            BuildableName = "Event_Heart_It_iOS.app"
+            BlueprintName = "Event_Heart_It_iOS"
+            ReferencedContainer = "container:Event_Heart_It_iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6487C1F22ABD982700DF8963"
-            BuildableName = "Car_Heart_It_iOS.app"
-            BlueprintName = "Car_Heart_It_iOS"
-            ReferencedContainer = "container:Car_Heart_It_iOS.xcodeproj">
+            BuildableName = "Event_Heart_It_iOS.app"
+            BlueprintName = "Event_Heart_It_iOS"
+            ReferencedContainer = "container:Event_Heart_It_iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

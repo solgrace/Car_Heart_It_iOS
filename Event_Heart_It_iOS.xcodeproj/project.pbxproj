@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6447F3C12AC2CC300040B3F7 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 6447F3C02AC2CC300040B3F7 /* MapboxMaps */; };
-		6447F3C32AC2CC440040B3F7 /* CarRentalMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447F3C22AC2CC440040B3F7 /* CarRentalMapView.swift */; };
+		6447F3C32AC2CC440040B3F7 /* EventMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447F3C22AC2CC440040B3F7 /* EventMapView.swift */; };
 		6447F3C52AC2D4BB0040B3F7 /* MapViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447F3C42AC2D4BB0040B3F7 /* MapViewContainer.swift */; };
 		6447F3CD2AC40F110040B3F7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447F3CC2AC40F110040B3F7 /* LocationManager.swift */; };
-		6487C1F72ABD982700DF8963 /* Car_Heart_It_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6487C1F62ABD982700DF8963 /* Car_Heart_It_iOSApp.swift */; };
+		64607BD32AC7F578004EF95B /* Event-Heart-It-iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6447F3CE2AC41EA10040B3F7 /* Event-Heart-It-iOS-Info.plist */; };
+		6487C1F72ABD982700DF8963 /* Event_Heart_It_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6487C1F62ABD982700DF8963 /* Event_Heart_It_iOSApp.swift */; };
 		6487C1F92ABD982700DF8963 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6487C1F82ABD982700DF8963 /* ContentView.swift */; };
 		6487C1FB2ABD982B00DF8963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6487C1FA2ABD982B00DF8963 /* Assets.xcassets */; };
 		6487C1FE2ABD982B00DF8963 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6487C1FD2ABD982B00DF8963 /* Preview Assets.xcassets */; };
@@ -29,12 +30,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6447F3C22AC2CC440040B3F7 /* CarRentalMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRentalMapView.swift; sourceTree = "<group>"; };
+		6447F3C22AC2CC440040B3F7 /* EventMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMapView.swift; sourceTree = "<group>"; };
 		6447F3C42AC2D4BB0040B3F7 /* MapViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewContainer.swift; sourceTree = "<group>"; };
 		6447F3CC2AC40F110040B3F7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		6447F3CE2AC41EA10040B3F7 /* Car-Heart-It-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Car-Heart-It-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
-		6487C1F32ABD982700DF8963 /* Car_Heart_It_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Car_Heart_It_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6487C1F62ABD982700DF8963 /* Car_Heart_It_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car_Heart_It_iOSApp.swift; sourceTree = "<group>"; };
+		6447F3CE2AC41EA10040B3F7 /* Event-Heart-It-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Event-Heart-It-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
+		6487C1F32ABD982700DF8963 /* Event_Heart_It_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Event_Heart_It_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6487C1F62ABD982700DF8963 /* Event_Heart_It_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event_Heart_It_iOSApp.swift; sourceTree = "<group>"; };
 		6487C1F82ABD982700DF8963 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6487C1FA2ABD982B00DF8963 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6487C1FD2ABD982B00DF8963 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -66,7 +67,7 @@
 		6487C1EA2ABD982700DF8963 = {
 			isa = PBXGroup;
 			children = (
-				6487C1F52ABD982700DF8963 /* Car_Heart_It_iOS */,
+				6487C1F52ABD982700DF8963 /* Event_Heart_It_iOS */,
 				6487C1F42ABD982700DF8963 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,16 +75,16 @@
 		6487C1F42ABD982700DF8963 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6487C1F32ABD982700DF8963 /* Car_Heart_It_iOS.app */,
+				6487C1F32ABD982700DF8963 /* Event_Heart_It_iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6487C1F52ABD982700DF8963 /* Car_Heart_It_iOS */ = {
+		6487C1F52ABD982700DF8963 /* Event_Heart_It_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				6447F3CE2AC41EA10040B3F7 /* Car-Heart-It-iOS-Info.plist */,
-				6487C1F62ABD982700DF8963 /* Car_Heart_It_iOSApp.swift */,
+				6447F3CE2AC41EA10040B3F7 /* Event-Heart-It-iOS-Info.plist */,
+				6487C1F62ABD982700DF8963 /* Event_Heart_It_iOSApp.swift */,
 				6487C1F82ABD982700DF8963 /* ContentView.swift */,
 				6487C2092ABD9E3300DF8963 /* Model */,
 				6487C20A2ABD9E3A00DF8963 /* ViewModel */,
@@ -95,7 +96,7 @@
 				6487C2242AC0C2F700DF8963 /* CoreDataUser.xcdatamodeld */,
 				6487C1FC2ABD982B00DF8963 /* Preview Content */,
 			);
-			path = Car_Heart_It_iOS;
+			path = Event_Heart_It_iOS;
 			sourceTree = "<group>";
 		};
 		6487C1FC2ABD982B00DF8963 /* Preview Content */ = {
@@ -130,7 +131,7 @@
 			children = (
 				6487C2172ABEB39B00DF8963 /* LoginView.swift */,
 				6487C2192ABEB3AA00DF8963 /* SignupView.swift */,
-				6447F3C22AC2CC440040B3F7 /* CarRentalMapView.swift */,
+				6447F3C22AC2CC440040B3F7 /* EventMapView.swift */,
 				6447F3C42AC2D4BB0040B3F7 /* MapViewContainer.swift */,
 				6447F3CC2AC40F110040B3F7 /* LocationManager.swift */,
 			);
@@ -156,9 +157,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6487C1F22ABD982700DF8963 /* Car_Heart_It_iOS */ = {
+		6487C1F22ABD982700DF8963 /* Event_Heart_It_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6487C2062ABD982B00DF8963 /* Build configuration list for PBXNativeTarget "Car_Heart_It_iOS" */;
+			buildConfigurationList = 6487C2062ABD982B00DF8963 /* Build configuration list for PBXNativeTarget "Event_Heart_It_iOS" */;
 			buildPhases = (
 				6487C1EF2ABD982700DF8963 /* Sources */,
 				6487C1F02ABD982700DF8963 /* Frameworks */,
@@ -168,12 +169,12 @@
 			);
 			dependencies = (
 			);
-			name = Car_Heart_It_iOS;
+			name = Event_Heart_It_iOS;
 			packageProductDependencies = (
 				6447F3C02AC2CC300040B3F7 /* MapboxMaps */,
 			);
 			productName = Car_Heart_It_iOS;
-			productReference = 6487C1F32ABD982700DF8963 /* Car_Heart_It_iOS.app */;
+			productReference = 6487C1F32ABD982700DF8963 /* Event_Heart_It_iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -191,7 +192,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6487C1EE2ABD982700DF8963 /* Build configuration list for PBXProject "Car_Heart_It_iOS" */;
+			buildConfigurationList = 6487C1EE2ABD982700DF8963 /* Build configuration list for PBXProject "Event_Heart_It_iOS" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -207,7 +208,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6487C1F22ABD982700DF8963 /* Car_Heart_It_iOS */,
+				6487C1F22ABD982700DF8963 /* Event_Heart_It_iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -217,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64607BD32AC7F578004EF95B /* Event-Heart-It-iOS-Info.plist in Resources */,
 				6487C1FE2ABD982B00DF8963 /* Preview Assets.xcassets in Resources */,
 				6487C1FB2ABD982B00DF8963 /* Assets.xcassets in Resources */,
 			);
@@ -238,8 +240,8 @@
 				6487C2262AC0C2F700DF8963 /* CoreDataUser.xcdatamodeld in Sources */,
 				6487C2142ABEA87100DF8963 /* CoreDataManager.swift in Sources */,
 				648C0F9D2AC63A0700E43719 /* Event.swift in Sources */,
-				6447F3C32AC2CC440040B3F7 /* CarRentalMapView.swift in Sources */,
-				6487C1F72ABD982700DF8963 /* Car_Heart_It_iOSApp.swift in Sources */,
+				6447F3C32AC2CC440040B3F7 /* EventMapView.swift in Sources */,
+				6487C1F72ABD982700DF8963 /* Event_Heart_It_iOSApp.swift in Sources */,
 				64C503F22AC61CC400FE8219 /* EventAPIClient.swift in Sources */,
 				6487C2182ABEB39B00DF8963 /* LoginView.swift in Sources */,
 				6487C21A2ABEB3AA00DF8963 /* SignupView.swift in Sources */,
@@ -372,11 +374,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Car_Heart_It_iOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Event_Heart_It_iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 8CXPW395VQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Car-Heart-It-iOS-Info.plist";
+				INFOPLIST_FILE = "Event-Heart-It-iOS-Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to provide the latest events near you";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide the latest events near you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -404,11 +406,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Car_Heart_It_iOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Event_Heart_It_iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 8CXPW395VQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Car-Heart-It-iOS-Info.plist";
+				INFOPLIST_FILE = "Event-Heart-It-iOS-Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to provide the latest events near you";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide the latest events near you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -432,7 +434,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6487C1EE2ABD982700DF8963 /* Build configuration list for PBXProject "Car_Heart_It_iOS" */ = {
+		6487C1EE2ABD982700DF8963 /* Build configuration list for PBXProject "Event_Heart_It_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6487C2042ABD982B00DF8963 /* Debug */,
@@ -441,7 +443,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6487C2062ABD982B00DF8963 /* Build configuration list for PBXNativeTarget "Car_Heart_It_iOS" */ = {
+		6487C2062ABD982B00DF8963 /* Build configuration list for PBXNativeTarget "Event_Heart_It_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6487C2072ABD982B00DF8963 /* Debug */,
