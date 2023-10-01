@@ -202,33 +202,43 @@ struct EventMapView: View {
     @State private var cancellables: Set<AnyCancellable> = [] // For managing Combine subscriptions
 
     var body: some View {
-        NavigationView {
-            VStack {
-                MapViewContainer(userLocation: $locationManager.userLocation, events: events)
-                    .onAppear {
-                        // Check the authorization status before requesting location updates
-                        if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
-                            locationManager.startUpdatingLocation()
-                        } else {
-                            // Handle other cases as needed
+        TabView {
+            NavigationView {
+                VStack {
+                    MapViewContainer(userLocation: $locationManager.userLocation, events: events)
+                        .onAppear {
+                            // Check the authorization status before requesting location updates
+                            if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
+                                locationManager.startUpdatingLocation()
+                            } else {
+                                // Handle other cases as needed
+                            }
+
+                            // Fetch events near the user's location
+                            fetchEventsNearUserLocation()
                         }
-
-                        // Fetch events near the user's location
-                        fetchEventsNearUserLocation()
-                    }
-
-//                if !events.isEmpty {
-//                    List(events) { event in
-//                        Text("Event Name: \(event.name)")
-//                        // Display other event details here
-//                    }
-//                } else {
-//                    Text("No events found near your location.")
-//                }
+                }
+                .padding()
+                .navigationBarBackButtonHidden(true)
             }
-            .padding()
+            .tabItem {
+                Label("Events", systemImage: "map.fill")
+            }
+            
+            NavigationView {
+                EventsBookedView()
+            }
+            .tabItem {
+                Label("Booked", systemImage: "book.fill")
+            }
+
+            NavigationView {
+                ReviewsView()
+            }
+            .tabItem {
+                Label("Reviews", systemImage: "star.fill")
+            }
         }
-        .navigationBarBackButtonHidden(true)
     }
 
     private func fetchEventsNearUserLocation() {

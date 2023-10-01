@@ -206,6 +206,8 @@ struct MapViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> MapView {
         let resourceOptions = ResourceOptions(accessToken: accessToken)
         let mapInitOptions = MapInitOptions(resourceOptions: resourceOptions)
+        
+        // Use UIScreen.main.bounds to get the screen size
         let mapView = MapView(frame: UIScreen.main.bounds, mapInitOptions: mapInitOptions)
 
         // Enable user location tracking
@@ -218,6 +220,7 @@ struct MapViewContainer: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MapView, context: Context) {
+        uiView.frame = UIScreen.main.bounds
         mapViewContainerState.updateMapView(userLocation: userLocation, events: events)
     }
 
@@ -229,32 +232,6 @@ struct MapViewContainer: UIViewRepresentable {
 class MapViewContainerState: ObservableObject {
     var mapView: MapView?
 
-//    func updateMapView(userLocation: CLLocationCoordinate2D?, events: [EventData]) {
-//        // Your update logic here using mapView
-//        guard let mapView = mapView else {
-//            print("MapView is nil.")
-//            return
-//        }
-//
-//        // Your logic to update the MapView with user location and events
-//        if let userLocation = userLocation {
-//            let cameraOptions = CameraOptions(center: userLocation, zoom: 15)
-//            mapView.camera.ease(to: cameraOptions, duration: 1.0) { _ in
-//                // Completion handler, if needed
-//            }
-//
-//            // Use the passed events to add view annotations
-//            for event in events {
-//                if let venue = event.venue, let latitude = venue.latitude, let longitude = venue.longitude {
-//                    let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//                    addViewAnnotation(at: coordinate)
-//                } else {
-//                    print("Event is missing venue data or latitude/longitude.")
-//                }
-//            }
-//        }
-//    }
-    
     func updateMapView(userLocation: CLLocationCoordinate2D?, events: [EventData]) {
         guard let mapView = mapView else {
             print("MapView is nil.")
