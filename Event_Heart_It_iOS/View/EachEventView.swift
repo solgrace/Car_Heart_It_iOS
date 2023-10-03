@@ -161,6 +161,8 @@ struct EachEventView: View {
                 }
                 .padding([.horizontal, .bottom], 15) // Adds horizontal (left and right) and bottom padding
                 .edgesIgnoringSafeArea(.all) // Ignore safe area to fill the entire screen
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarHidden(true)
             }
             // Remove title if "< Back" not showing ↓
             .navigationBarTitle("Event Details", displayMode: .inline)

@@ -30,7 +30,8 @@ struct ContentView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Welcome")
+            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

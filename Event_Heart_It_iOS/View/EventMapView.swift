@@ -203,42 +203,39 @@ struct EventMapView: View {
 
     var body: some View {
         TabView {
-            NavigationView {
-                VStack {
-                    MapViewContainer(userLocation: $locationManager.userLocation, events: events)
-                        .onAppear {
-                            // Check the authorization status before requesting location updates
-                            if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
-                                locationManager.startUpdatingLocation()
-                            } else {
-                                // Handle other cases as needed
-                            }
-
-                            // Fetch events near the user's location
-                            fetchEventsNearUserLocation()
+            VStack {
+                MapViewContainer(userLocation: $locationManager.userLocation, events: events)
+                    .onAppear {
+                        // Check the authorization status before requesting location updates
+                        if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
+                            locationManager.startUpdatingLocation()
+                        } else {
+                            // Handle other cases as needed
                         }
-                }
-                .padding()
-                .navigationBarBackButtonHidden(true)
+
+                        // Fetch events near the user's location
+                        fetchEventsNearUserLocation()
+                    }
             }
+            .padding()
+            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
             .tabItem {
                 Label("Events", systemImage: "map.fill")
             }
-            
-            NavigationView {
-                EventsBookedView()
-            }
-            .tabItem {
-                Label("Booked", systemImage: "book.fill")
-            }
 
-            NavigationView {
-                ReviewsView()
-            }
-            .tabItem {
-                Label("Reviews", systemImage: "star.fill")
-            }
+            EventsBookedView()
+                .tabItem {
+                    Label("Booked", systemImage: "book.fill")
+                }
+
+            ReviewsView()
+                .tabItem {
+                    Label("Reviews", systemImage: "star.fill")
+                }
         }
+        .navigationBarTitle("", displayMode: .inline) // Add this line to hide the title
+        .navigationBarBackButtonHidden(true) // Add this line to hide the back button
     }
 
     private func fetchEventsNearUserLocation() {

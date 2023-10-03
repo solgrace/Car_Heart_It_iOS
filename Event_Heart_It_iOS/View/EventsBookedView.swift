@@ -47,29 +47,79 @@
 
 
 
+
+
+
+
+
+
+
+//import SwiftUI
+//import CoreData
+//
+//struct EventsBookedView: View {
+//    @Environment(\.managedObjectContext) private var viewContext
+//
+//    // Fetch Request to get the booked events
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \BookedEvents.name, ascending: false)],
+//        animation: .default)
+//    var bookedEvents: FetchedResults<BookedEvents>
+//
+//    var body: some View {
+//        NavigationView {
+//            List {
+//                ForEach(bookedEvents) { bookedEvent in
+//                    // Display booked event information here
+//                    VStack(alignment: .leading) {
+//                        Text(bookedEvent.name ?? "Unknown Event")
+//                            .font(.headline)
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
 import SwiftUI
 import CoreData
 
 struct EventsBookedView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    // Fetch Request to get the booked events
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \BookedEvents.name, ascending: false)],
-        animation: .default)
+    // Create a static variable for the fetch request
+    static var getBookedEventsFetchRequest: NSFetchRequest<BookedEvents> {
+        let request: NSFetchRequest<BookedEvents> = BookedEvents.fetchRequest()
+        request.sortDescriptors = []
+        return request
+    }
+
+    // Use the static fetch request in the @FetchRequest property wrapper
+    @FetchRequest(fetchRequest: getBookedEventsFetchRequest)
     var bookedEvents: FetchedResults<BookedEvents>
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(bookedEvents) { bookedEvent in
-                    // Display booked event information here
-                    VStack(alignment: .leading) {
-                        Text(bookedEvent.name ?? "Unknown Event")
-                            .font(.headline)
-                    }
+        List {
+            ForEach(bookedEvents) { bookedEvent in
+                // Display booked event information here
+                VStack(alignment: .leading) {
+                    Text(bookedEvent.name ?? "Unknown Event")
+                        .font(.headline)
                 }
             }
         }
+        .navigationBarTitle("Booked Events")
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 }
