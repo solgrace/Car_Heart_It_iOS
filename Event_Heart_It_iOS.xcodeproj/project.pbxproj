@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6412470C2ACBB90700651A8F /* BookedEventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6412470B2ACBB90700651A8F /* BookedEventsViewModel.swift */; };
+		641247192ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 641247172ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld */; };
 		6447F3C12AC2CC300040B3F7 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 6447F3C02AC2CC300040B3F7 /* MapboxMaps */; };
 		6447F3C32AC2CC440040B3F7 /* EventMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447F3C22AC2CC440040B3F7 /* EventMapView.swift */; };
 		6447F3C52AC2D4BB0040B3F7 /* MapViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447F3C42AC2D4BB0040B3F7 /* MapViewContainer.swift */; };
@@ -26,13 +28,13 @@
 		6487C2142ABEA87100DF8963 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6487C2132ABEA87100DF8963 /* CoreDataManager.swift */; };
 		6487C2182ABEB39B00DF8963 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6487C2172ABEB39B00DF8963 /* LoginView.swift */; };
 		6487C21A2ABEB3AA00DF8963 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6487C2192ABEB3AA00DF8963 /* SignupView.swift */; };
-		6487C2262AC0C2F700DF8963 /* CoreDataUser.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6487C2242AC0C2F700DF8963 /* CoreDataUser.xcdatamodeld */; };
 		648C0F9D2AC63A0700E43719 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648C0F9C2AC63A0700E43719 /* Event.swift */; };
-		64C503EF2AC61C4900FE8219 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C503EE2AC61C4900FE8219 /* EventViewModel.swift */; };
 		64C503F22AC61CC400FE8219 /* EventAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C503F12AC61CC400FE8219 /* EventAPIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6412470B2ACBB90700651A8F /* BookedEventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedEventsViewModel.swift; sourceTree = "<group>"; };
+		641247182ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventHeartIt_CoreDataDB.xcdatamodel; sourceTree = "<group>"; };
 		6447F3C22AC2CC440040B3F7 /* EventMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMapView.swift; sourceTree = "<group>"; };
 		6447F3C42AC2D4BB0040B3F7 /* MapViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewContainer.swift; sourceTree = "<group>"; };
 		6447F3CC2AC40F110040B3F7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -52,9 +54,7 @@
 		6487C2132ABEA87100DF8963 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		6487C2172ABEB39B00DF8963 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6487C2192ABEB3AA00DF8963 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
-		6487C2252AC0C2F700DF8963 /* CoreDataUser.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataUser.xcdatamodel; sourceTree = "<group>"; };
 		648C0F9C2AC63A0700E43719 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		64C503EE2AC61C4900FE8219 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		64C503F12AC61CC400FE8219 /* EventAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAPIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,7 +99,7 @@
 				6487C20C2ABEA77100DF8963 /* Data */,
 				6487C1FA2ABD982B00DF8963 /* Assets.xcassets */,
 				6487C1FF2ABD982B00DF8963 /* Persistence.swift */,
-				6487C2242AC0C2F700DF8963 /* CoreDataUser.xcdatamodeld */,
+				641247172ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld */,
 				6487C1FC2ABD982B00DF8963 /* Preview Content */,
 			);
 			path = Event_Heart_It_iOS;
@@ -127,7 +127,7 @@
 			children = (
 				6487C20F2ABEA84C00DF8963 /* LoginViewModel.swift */,
 				6487C2112ABEA86000DF8963 /* SignupViewModel.swift */,
-				64C503EE2AC61C4900FE8219 /* EventViewModel.swift */,
+				6412470B2ACBB90700651A8F /* BookedEventsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -245,10 +245,10 @@
 				6487C2102ABEA84C00DF8963 /* LoginViewModel.swift in Sources */,
 				6487C2122ABEA86000DF8963 /* SignupViewModel.swift in Sources */,
 				6487C1F92ABD982700DF8963 /* ContentView.swift in Sources */,
+				6412470C2ACBB90700651A8F /* BookedEventsViewModel.swift in Sources */,
 				6487C20E2ABEA7CA00DF8963 /* User.swift in Sources */,
 				6447F3C52AC2D4BB0040B3F7 /* MapViewContainer.swift in Sources */,
 				64607BDD2ACA45CD004EF95B /* EachEventView.swift in Sources */,
-				6487C2262AC0C2F700DF8963 /* CoreDataUser.xcdatamodeld in Sources */,
 				64607BD92ACA1952004EF95B /* EventsBookedView.swift in Sources */,
 				6487C2142ABEA87100DF8963 /* CoreDataManager.swift in Sources */,
 				648C0F9D2AC63A0700E43719 /* Event.swift in Sources */,
@@ -257,8 +257,8 @@
 				64C503F22AC61CC400FE8219 /* EventAPIClient.swift in Sources */,
 				6487C2182ABEB39B00DF8963 /* LoginView.swift in Sources */,
 				6487C21A2ABEB3AA00DF8963 /* SignupView.swift in Sources */,
-				64C503EF2AC61C4900FE8219 /* EventViewModel.swift in Sources */,
 				6447F3CD2AC40F110040B3F7 /* LocationManager.swift in Sources */,
+				641247192ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,13 +486,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		6487C2242AC0C2F700DF8963 /* CoreDataUser.xcdatamodeld */ = {
+		641247172ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				6487C2252AC0C2F700DF8963 /* CoreDataUser.xcdatamodel */,
+				641247182ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodel */,
 			);
-			currentVersion = 6487C2252AC0C2F700DF8963 /* CoreDataUser.xcdatamodel */;
-			path = CoreDataUser.xcdatamodeld;
+			currentVersion = 641247182ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodel */;
+			path = EventHeartIt_CoreDataDB.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

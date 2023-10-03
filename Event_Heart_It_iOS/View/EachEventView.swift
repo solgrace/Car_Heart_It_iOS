@@ -10,6 +10,9 @@ import SwiftUI
 struct EachEventView: View {
     @Environment(\.presentationMode) var presentationMode
     let event: EventData
+    
+    @State private var isBooked = false
+    let bookedEventsViewModel = BookedEventsViewModel() // Create an instance
 
     var body: some View {
         NavigationView {
@@ -127,8 +130,35 @@ struct EachEventView: View {
                     
                     // Add more sections for other event details
                     
+                    // Book Button
+                    Button(action: {
+                        // Toggle the booking status
+                        isBooked.toggle()
+
+                        // Call the bookEvent function in your BookedEventsViewModel instance
+                        if isBooked {
+                            bookedEventsViewModel.bookEvent(event: event) { success, errorMessage in
+                                if success {
+                                    // Handle successful booking
+                                    print("Event booked successfully!")
+                                } else {
+                                    // Handle booking failure
+                                    print("Failed to book event. Error: \(errorMessage ?? "Unknown error")")
+                                }
+                            }
+                        } else {
+                            // Handle unbooking if needed
+                        }
+                    }) {
+                        Text(isBooked ? "Booked!" : "Book")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(isBooked ? Color.green : Color.blue)
+                            .cornerRadius(8)
+                    }
+                    .padding(.bottom, 20)
+
                 }
-//                .padding()
                 .padding([.horizontal, .bottom], 15) // Adds horizontal (left and right) and bottom padding
                 .edgesIgnoringSafeArea(.all) // Ignore safe area to fill the entire screen
             }

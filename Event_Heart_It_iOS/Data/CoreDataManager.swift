@@ -12,7 +12,7 @@ class CoreDataManager {
     static let shared = CoreDataManager()
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "CoreDataUser")
+        let container = NSPersistentContainer(name: "EventHeartIt_CoreDataDB")
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -98,6 +98,69 @@ class CoreDataManager {
         } catch {
             print("Error fetching user: \(error)")
             return nil
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    // For Booking Events:
+    
+    func bookEventCoreData(event: EventData) -> Bool {
+        let context = persistentContainer.viewContext
+
+        // Example assuming you have a "BookedEvents" entity in your Core Data model
+//        let fetchRequest: NSFetchRequest<BookedEvents> = BookedEvents.fetchRequest()
+        let fetchRequest = NSFetchRequest<BookedEvents>(entityName: "BookedEvents")
+
+        // Add a predicate to check if the same event is already booked
+        fetchRequest.predicate = NSPredicate(format: "name == %@", event.name)
+
+        do {
+            // Attempt to fetch existing booked events based on the predicate
+            let existingBookedEvents = try context.fetch(fetchRequest)
+
+            if existingBookedEvents.isEmpty {
+                // Create a new BookedEvent object if none exists
+                let bookedEvent = BookedEvents(context: context)
+
+                // Set properties for the booked event
+                bookedEvent.name = event.name
+
+                // Add more lines to set other properties accordingly
+
+                // Save the changes to CoreData
+                try context.save()
+
+                // Print success message
+                print("Successfully saved booked event.")
+                
+                // Additional print statements for debugging
+                print("Booked Event Details:")
+                print("- Name: \(bookedEvent.name ?? "Unknown Event")")
+                // Print other properties as needed
+
+                return true
+            } else {
+                // Handle the case where the same event is already booked
+                print("The same event is already booked.")
+                // Additional print statements for debugging
+                print("Existing Booked Event Details:")
+                for (index, existingEvent) in existingBookedEvents.enumerated() {
+                    print("\(index + 1). Name: \(existingEvent.name ?? "Unknown Event")")
+                    // Print other properties as needed
+                }
+                
+                return false
+            }
+        } catch {
+            // Print error if fetch or save fails
+            print("Error: \(error.localizedDescription)")
+            return false
         }
     }
 

@@ -511,6 +511,7 @@ struct EventAnnotationView: View {
                     .font(.headline)
                     .foregroundColor(.black)
                     .padding(.bottom, 5)
+                    .frame(maxWidth: .infinity)
 
                 Button(action: {
                     print("Button tapped. Presenting EachEventView.")
@@ -532,14 +533,14 @@ struct EventAnnotationView: View {
                         }
                 }
             }
-            .padding(25)
+            .padding(30)
             .background(Color.white)
             .cornerRadius(8)
             .shadow(radius: 5)
 
             Image("RedPin")
                 .resizable()
-                .frame(width: 50, height: 50)
+                .frame(width: 70, height: 70)
                 .offset(x: 0, y: 0)
         }
     }
@@ -606,8 +607,8 @@ class MapViewContainerState: ObservableObject {
         // Options for the view annotation
         let options = ViewAnnotationOptions(
             geometry: Point(coordinate),
-            width: 100, // Set to a non-zero value
-            height: 100, // Set to a non-zero value
+            width: 150, // Set to a non-zero value
+            height: 150, // Set to a non-zero value
             anchor: .bottom
         )
 
