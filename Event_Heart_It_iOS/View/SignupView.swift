@@ -54,7 +54,25 @@ struct SignupView: View {
         .padding()
     }
     
-    // Function to call the signup logic from SignupViewModel
+//    // Function to call the signup logic from SignupViewModel (using CoreData)
+//    private func signup() {
+//        signupViewModel.signup(firstName: firstName, lastName: lastName, email: email, password: password) { success, errorMessage in
+//            if success {
+//                // Signup was successful
+//                print("Signup successful from SignupView")
+//                // You can navigate to another view or perform any other action here
+//            } else {
+//                // Signup failed, display an error message
+//                signupError = errorMessage ?? "Signup failed"
+//            }
+//        }
+//    }
+    
+    
+    
+    
+    
+    // Function to call the signup logic from SignupViewModel (using Firebase)
     private func signup() {
         signupViewModel.signup(firstName: firstName, lastName: lastName, email: email, password: password) { success, errorMessage in
             if success {
@@ -67,7 +85,7 @@ struct SignupView: View {
             }
         }
     }
-    
+
 }
 
 struct SignupView_Previews: PreviewProvider {

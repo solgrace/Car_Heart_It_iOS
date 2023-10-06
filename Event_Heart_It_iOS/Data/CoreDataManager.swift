@@ -10,7 +10,7 @@ import CoreData
 
 class CoreDataManager {
     static let shared = CoreDataManager()
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "EventHeartIt_CoreDataDB")
         container.loadPersistentStores(completionHandler: { (_, error) in
@@ -20,14 +20,14 @@ class CoreDataManager {
         })
         return container
     }()
-    
+
     // MARK: - User Authentication
-    
+
     func authenticateUser(email: String, password: String) -> Bool {
         // Implement user authentication logic using Core Data
         let fetchRequest = NSFetchRequest<CoreDataUser>(entityName: "CoreDataUser")
         fetchRequest.predicate = NSPredicate(format: "email == %@ AND password == %@", email, password)
-        
+
         do {
             let matchingUsers = try persistentContainer.viewContext.fetch(fetchRequest)
             return !matchingUsers.isEmpty
@@ -41,7 +41,7 @@ class CoreDataManager {
         // Implement user registration logic using Core Data
         let fetchRequest = NSFetchRequest<CoreDataUser>(entityName: "CoreDataUser")
         fetchRequest.predicate = NSPredicate(format: "email == %@", email)
-        
+
         do {
             let matchingUsers = try persistentContainer.viewContext.fetch(fetchRequest)
             if !matchingUsers.isEmpty {
@@ -54,10 +54,10 @@ class CoreDataManager {
                 newUser.lastName = lastName
                 newUser.email = email
                 newUser.password = password
-                
+
                 // Save the changes to CoreData
                 try persistentContainer.viewContext.save()
-                
+
                 return true // Registration successful
             }
         } catch {
@@ -65,17 +65,17 @@ class CoreDataManager {
             return false
         }
     }
-    
+
     // Implement other CRUD methods for user data
-    
-    
-    
+
+
+
     // Check if a user with the provided email already exists
     func userExists(email: String) -> Bool {
 //        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
         let fetchRequest = NSFetchRequest<CoreDataUser>(entityName: "CoreDataUser")
         fetchRequest.predicate = NSPredicate(format: "email == %@", email)
-        
+
         do {
             let existingUsers = try persistentContainer.viewContext.fetch(fetchRequest)
             return !existingUsers.isEmpty
@@ -84,14 +84,14 @@ class CoreDataManager {
             return false
         }
     }
-    
-    
-    
+
+
+
     func fetchUser(email: String) -> CoreDataUser? {
 //        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
         let fetchRequest = NSFetchRequest<CoreDataUser>(entityName: "CoreDataUser")
         fetchRequest.predicate = NSPredicate(format: "email == %@", email)
-        
+
         do {
             let existingUsers = try persistentContainer.viewContext.fetch(fetchRequest)
             return existingUsers.first
@@ -100,16 +100,16 @@ class CoreDataManager {
             return nil
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
     // For Booking Events:
-    
+
     func bookEventCoreData(event: EventData) -> Bool {
         let context = persistentContainer.viewContext
 
@@ -138,7 +138,7 @@ class CoreDataManager {
 
                 // Print success message
                 print("Successfully saved booked event.")
-                
+
                 // Additional print statements for debugging
                 print("Booked Event Details:")
                 print("- Name: \(bookedEvent.name ?? "Unknown Event")")
@@ -154,7 +154,7 @@ class CoreDataManager {
                     print("\(index + 1). Name: \(existingEvent.name ?? "Unknown Event")")
                     // Print other properties as needed
                 }
-                
+
                 return false
             }
         } catch {

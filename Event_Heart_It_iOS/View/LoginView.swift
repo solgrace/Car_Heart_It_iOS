@@ -52,7 +52,29 @@ struct LoginView: View {
         }
     }
     
-    // Function to call the signup logic from SignupViewModel
+//    // Function to call the signup logic from SignupViewModel (using CoreData)
+//    private func login() {
+//        loginViewModel.login(email: email, password: password) { success, errorMessage in
+//            if success {
+//                // Login was successful
+//                print("Login successful from LoginView")
+//
+//                // Set isLogged to true to trigger navigation
+//                isLogged = true
+//
+//                // You can navigate to another view or perform any other action here
+//            } else {
+//                // Login failed, display an error message
+//                loginError = errorMessage ?? "Login failed"
+//            }
+//        }
+//    }
+    
+    
+    
+    
+    
+    // Function to call the signup logic from SignupViewModel (using Firebase)
     private func login() {
         loginViewModel.login(email: email, password: password) { success, errorMessage in
             if success {
@@ -68,7 +90,6 @@ struct LoginView: View {
                 loginError = errorMessage ?? "Login failed"
             }
         }
-        
     }
     
 }
