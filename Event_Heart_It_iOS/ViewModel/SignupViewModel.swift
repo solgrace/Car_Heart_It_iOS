@@ -44,32 +44,40 @@ class SignupViewModel {
     
     
     
-    // Using Firebase Realtime Database:
+    // Using Firebase Authentication:
     func signup(firstName: String, lastName: String, email: String, password: String, completion: @escaping (Bool, String?) -> Void) {
-        // Reference to the Realtime Database
-        let databaseRef = Database.database().reference()
-
-        // Create a unique user ID
-        let uid = databaseRef.child("Users").childByAutoId().key ?? ""
-
-        // Create a dictionary to store user details
-        let userDictionary: [String: Any] = [
-            "uid": uid,
-            "firstName": firstName,
-            "lastName": lastName,
-            "email": email,
-            "password": password
-            // Add any other user details you want to store
-        ]
-
-        // Set user details in the Realtime Database under "Users" node
-        databaseRef.child("Users").child(uid).setValue(userDictionary) { (error, _) in
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                print("Error saving user details: \(error.localizedDescription)")
-                completion(false, "Error saving user details")
+                print("Error creating user: \(error.localizedDescription)")
+                completion(false, "Error creating user")
+                return
+            }
+
+            if let user = authResult?.user {
+                let userID = user.uid
+
+                // Now you can store additional user details in the Realtime Database
+                let databaseRef = Database.database().reference()
+                let userDictionary: [String: Any] = [
+                    "uid": userID,
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "password": password
+                    // Add any other user details you want to store
+                ]
+
+                databaseRef.child("Users").child(userID).setValue(userDictionary) { (error, _) in
+                    if let error = error {
+                        print("Error saving user details: \(error.localizedDescription)")
+                        completion(false, "Error saving user details")
+                    } else {
+                        print("User details saved successfully")
+                        completion(true, nil)
+                    }
+                }
             } else {
-                print("User details saved successfully")
-                completion(true, nil)
+                completion(false, "Error creating user")
             }
         }
     }

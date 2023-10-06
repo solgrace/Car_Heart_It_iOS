@@ -34,25 +34,21 @@ class LoginViewModel {
     
     
     
-    // Using Firebase Realtime Database:
+    // Using Firebase Authentication:
     func login(email: String, password: String, completion: @escaping (Bool, String?) -> Void) {
-        let databaseRef = Database.database().reference()
-
-        databaseRef.child("Users").observeSingleEvent(of: .value) { snapshot in
-            guard let users = snapshot.value as? [String: [String: String]] else {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Error signing in: \(error.localizedDescription)")
                 completion(false, "Invalid credentials")
                 return
             }
 
-            for (_, user) in users {
-                if user["email"] == email && user["password"] == password {
-                    completion(true, nil)
-                    return
-                }
+            if let user = authResult?.user {
+                let userID = user.uid
+                completion(true, userID)
+            } else {
+                completion(false, "Invalid credentials")
             }
-
-            // No matching user found
-            completion(false, "Invalid credentials")
         }
     }
     

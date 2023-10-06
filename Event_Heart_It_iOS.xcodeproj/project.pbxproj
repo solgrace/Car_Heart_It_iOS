@@ -35,6 +35,7 @@
 		64E0872F2AD0AD3600922106 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 64E0872E2AD0AD3600922106 /* FirebaseDatabase */; };
 		64E087312AD0AD3600922106 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 64E087302AD0AD3600922106 /* FirebaseFirestore */; };
 		64E087332AD0AD3600922106 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 64E087322AD0AD3600922106 /* FirebaseStorage */; };
+		64E087352AD0C30A00922106 /* BookedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E087342AD0C30A00922106 /* BookedEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		648C0F9C2AC63A0700E43719 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		64C503F12AC61CC400FE8219 /* EventAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAPIClient.swift; sourceTree = "<group>"; };
 		64E087292AD0AAB400922106 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		64E087342AD0C30A00922106 /* BookedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			children = (
 				6487C20D2ABEA7CA00DF8963 /* User.swift */,
 				648C0F9C2AC63A0700E43719 /* Event.swift */,
+				64E087342AD0C30A00922106 /* BookedEvent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				648C0F9D2AC63A0700E43719 /* Event.swift in Sources */,
 				6447F3C32AC2CC440040B3F7 /* EventMapView.swift in Sources */,
 				6487C1F72ABD982700DF8963 /* Event_Heart_It_iOSApp.swift in Sources */,
+				64E087352AD0C30A00922106 /* BookedEvent.swift in Sources */,
 				64C503F22AC61CC400FE8219 /* EventAPIClient.swift in Sources */,
 				6487C2182ABEB39B00DF8963 /* LoginView.swift in Sources */,
 				6487C21A2ABEB3AA00DF8963 /* SignupView.swift in Sources */,

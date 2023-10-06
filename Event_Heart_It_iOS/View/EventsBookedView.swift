@@ -7,41 +7,38 @@
 
 
 
+//// USING COREDATA:
 //import SwiftUI
 //import CoreData
 //
 //struct EventsBookedView: View {
 //    @Environment(\.managedObjectContext) private var viewContext
 //
-//    // Fetch Request to get the booked events
-//    @FetchRequest(
-//        entity: BookedEvents.entity(),
-//        sortDescriptors: [NSSortDescriptor(keyPath: \BookedEvents.name, ascending: false)],
-//        animation: .default)
+//    // Create a static variable for the fetch request
+//    static var getBookedEventsFetchRequest: NSFetchRequest<BookedEvents> {
+//        let request: NSFetchRequest<BookedEvents> = BookedEvents.fetchRequest()
+//        request.sortDescriptors = []
+//        return request
+//    }
+//
+//    // Use the static fetch request in the @FetchRequest property wrapper
+//    @FetchRequest(fetchRequest: getBookedEventsFetchRequest)
 //    var bookedEvents: FetchedResults<BookedEvents>
-////    private var bookedEvents: FetchedResults<BookedEvents>
 //
 //    var body: some View {
-//        NavigationView {
-//            List {
-//                ForEach(bookedEvents) { bookedEvent in
-//                    // Display booked event information here
-//                    VStack(alignment: .leading) {
-//                        Text(bookedEvent.name ?? "Unkown Event")
-//                            .font(.headline)
-//                    }
-//                }
-//                .navigationBarTitle("Booked Events")
-//            }
-//            .onAppear {
-//                do {
-//                    let events = try viewContext.fetch(BookedEvents.fetchRequest())
-//                    print("Fetched \(events.count) events.")
-//                } catch {
-//                    print("Fetch error: \(error)")
+//        List {
+//            ForEach(bookedEvents) { bookedEvent in
+//                // Display booked event information here
+//                VStack(alignment: .leading) {
+//                    Text(bookedEvent.name ?? "Unknown Event")
+//                        .font(.headline)
 //                }
 //            }
 //        }
+//        .navigationBarTitle("Booked Events")
+//        .navigationBarTitle("", displayMode: .inline)
+//        .navigationBarBackButtonHidden(true)
+//        .navigationBarHidden(true)
 //    }
 //}
 
@@ -49,77 +46,33 @@
 
 
 
-
-
-
-
-
-//import SwiftUI
-//import CoreData
-//
-//struct EventsBookedView: View {
-//    @Environment(\.managedObjectContext) private var viewContext
-//
-//    // Fetch Request to get the booked events
-//    @FetchRequest(
-//        sortDescriptors: [NSSortDescriptor(keyPath: \BookedEvents.name, ascending: false)],
-//        animation: .default)
-//    var bookedEvents: FetchedResults<BookedEvents>
-//
-//    var body: some View {
-//        NavigationView {
-//            List {
-//                ForEach(bookedEvents) { bookedEvent in
-//                    // Display booked event information here
-//                    VStack(alignment: .leading) {
-//                        Text(bookedEvent.name ?? "Unknown Event")
-//                            .font(.headline)
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-
-
-
-
-
-
-
-
-
-
+// USING FIREBASE:
 import SwiftUI
-import CoreData
 
 struct EventsBookedView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    // Create a static variable for the fetch request
-    static var getBookedEventsFetchRequest: NSFetchRequest<BookedEvents> {
-        let request: NSFetchRequest<BookedEvents> = BookedEvents.fetchRequest()
-        request.sortDescriptors = []
-        return request
-    }
-
-    // Use the static fetch request in the @FetchRequest property wrapper
-    @FetchRequest(fetchRequest: getBookedEventsFetchRequest)
-    var bookedEvents: FetchedResults<BookedEvents>
+    @Environment(\.presentationMode) var presentationMode
+    
+    @StateObject private var bookedEventsViewModel = BookedEventsViewModel()
 
     var body: some View {
-        List {
-            ForEach(bookedEvents) { bookedEvent in
-                // Display booked event information here
-                VStack(alignment: .leading) {
-                    Text(bookedEvent.name ?? "Unknown Event")
-                        .font(.headline)
-                }
+        List(bookedEventsViewModel.bookedEvents, id: \.id) { bookedEvent in
+            VStack(alignment: .leading) {
+                Text(bookedEvent.eventName)
+                    .font(.headline)
+                // Add other event details if needed
             }
         }
-        .navigationBarTitle("Booked Events")
-        .navigationBarTitle("", displayMode: .inline)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(true)
+        .onAppear {
+            // Fetch past booked events when the view appears
+            bookedEventsViewModel.getBookedEvents { fetchedEvents in
+                // This is the completion handler, and `fetchedEvents` is an array of [BookedEvent]
+                // Do something with the fetched events
+            }
+        }
+//        .navigationBarTitle("Booked Events")
+        .navigationBarItems(leading: Button("Back") {
+            // Dismiss this view and navigate back to the previous view
+            presentationMode.wrappedValue.dismiss()
+        })
     }
 }
