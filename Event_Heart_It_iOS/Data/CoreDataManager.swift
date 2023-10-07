@@ -248,21 +248,36 @@ class CoreDataManager {
             return []
         }
     }
-//    func fetchBookedEvents() -> [BookedEvent] {
-//        let context = persistentContainer.viewContext
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookedEvent")
-//
-//        do {
-//            let result = try context.fetch(fetchRequest)
-//            guard let events = result as? [BookedEvent] else {
-//                print("Failed to cast result to [BookedEvent]")
-//                return []
-//            }
-//            print("Fetched \(events.count) booked events from CoreData")
-//            return events
-//        } catch {
-//            print("Failed to fetch booked events: \(error.localizedDescription)")
-//            return []
-//        }
-//    }
+    
+    
+    
+    
+    
+    // When a user logs into a new device, fetch their booked events from Firebase and store them in the local CoreData:
+    
+    // Function to sync booked events between Firebase and CoreData
+    func syncBookedEvents(bookedEvents: [BookedEventStruct], completion: @escaping () -> Void) {
+        let context = persistentContainer.viewContext
+
+        // Loop through the booked events from Firebase and save them to CoreData
+        for firebaseEvent in bookedEvents {
+            let entity = NSEntityDescription.entity(forEntityName: "BookedEvent", in: context)
+
+            // Create a new BookedEvent managed object
+            let bookedEvent = NSManagedObject(entity: entity!, insertInto: context) as! BookedEvent
+
+            // Set properties of the BookedEvent entity
+            bookedEvent.eventID = firebaseEvent.eventID
+            bookedEvent.eventName = firebaseEvent.eventName
+            bookedEvent.eventEndDate = "\(firebaseEvent.eventEndDate)" // Assuming eventEndDate is stored as String in CoreData
+            // Add other properties as needed
+
+            // Save the context after making changes
+            saveContext()
+        }
+
+        // Call the completion handler once all events are saved
+        completion()
+    }
+
 }

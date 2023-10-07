@@ -71,5 +71,9 @@ struct EventsBookedView: View {
             // Dismiss this view and navigate back to the previous view
             presentationMode.wrappedValue.dismiss()
         })
+        
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 }

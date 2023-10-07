@@ -242,4 +242,57 @@ class BookedEventsViewModel: ObservableObject {
         completion()
     }
     
+    
+    
+    
+    
+    // When a user logs into a new device, fetch their booked events from Firebase and store them in the local CoreData:
+        
+    func syncBookedEventsFromFirebase(completion: @escaping (Bool, String?) -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            completion(false, "User ID not available")
+            return
+        }
+
+        // Reference to the Firebase database
+        let databaseRef = Database.database().reference().child("Users").child(userID).child("BookedEvents")
+
+        // Fetch booked events from Firebase
+        databaseRef.observeSingleEvent(of: .value) { (snapshot, error) in
+            if let error = error {
+                completion(false, "Failed to fetch booked events from Firebase")
+                return
+            }
+
+            guard let eventsData = snapshot.value as? [String: [String: Any]] else {
+                print("Failed to fetch booked events from Firebase")
+                completion(false, "Failed to fetch booked events from Firebase")
+                return
+            }
+
+            // Convert Firebase data to BookedEventStruct
+            let firebaseEvents = eventsData.compactMap { (key, value) -> BookedEventStruct? in
+                guard
+                    let eventID = value["eventID"] as? String,
+                    let eventName = value["eventName"] as? String,
+                    let eventEndDate = value["eventEndDate"] as? TimeInterval
+                else {
+                    return nil
+                }
+
+                return BookedEventStruct(eventID: eventID, eventName: eventName, eventEndDate: eventEndDate)
+            }
+
+            // Update the local array and CoreData
+            self.bookedEvents = firebaseEvents
+            self.coreDataManager.syncBookedEvents(bookedEvents: firebaseEvents) {
+                // Handle completion logic if needed
+                
+                // Empty closure
+            }
+
+            completion(true, nil)
+        }
+    }
+
 }

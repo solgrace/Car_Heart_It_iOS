@@ -12,6 +12,13 @@ import FirebaseDatabase
 
 class LoginViewModel {
     
+    // Assuming this is at a higher level, like in your SwiftUI view or AppDelegate
+    let bookedEventsViewModel = BookedEventsViewModel(coreDataManager: CoreDataManager.shared)
+
+    
+    
+    
+    
 //    // Using CoreData Version:
 //    func login(email: String, password: String, completion: @escaping (Bool, String?) -> Void) {
 //        // Implement login logic
@@ -34,7 +41,7 @@ class LoginViewModel {
     
     
     
-    // Using Firebase Authentication:
+    // Using Firebase Authentication:    
     func login(email: String, password: String, completion: @escaping (Bool, String?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
@@ -45,7 +52,17 @@ class LoginViewModel {
 
             if let user = authResult?.user {
                 let userID = user.uid
-                completion(true, userID)
+                
+                // Call syncBookedEvents here
+                self.bookedEventsViewModel.syncBookedEventsFromFirebase { success, errorMessage in
+                    print("bookedEventsViewModel.syncBookedEventsFromFirebase from login called!")
+                    // This closure will be called after the synchronization is complete
+                    // You can perform any additional actions here if needed.
+
+                    // Example: Notify the completion block that login is successful
+                    completion(true, errorMessage)
+                }
+
             } else {
                 completion(false, "Invalid credentials")
             }
