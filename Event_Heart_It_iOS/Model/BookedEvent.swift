@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BookedEvent: Identifiable, Equatable {
+struct BookedEventStruct: Identifiable, Equatable {
     let id = UUID()  // Add a property that uniquely identifies the instance
     let eventID: String
     let eventName: String
@@ -19,7 +19,7 @@ struct BookedEvent: Identifiable, Equatable {
         self.eventEndDate = eventEndDate
     }
 
-    static func == (lhs: BookedEvent, rhs: BookedEvent) -> Bool {
+    static func == (lhs: BookedEventStruct, rhs: BookedEventStruct) -> Bool {
         return lhs.eventID == rhs.eventID
             && lhs.eventName == rhs.eventName
             && lhs.eventEndDate == rhs.eventEndDate

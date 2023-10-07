@@ -51,8 +51,7 @@ import SwiftUI
 
 struct EventsBookedView: View {
     @Environment(\.presentationMode) var presentationMode
-    
-    @StateObject private var bookedEventsViewModel = BookedEventsViewModel()
+    @StateObject private var bookedEventsViewModel = BookedEventsViewModel(coreDataManager: CoreDataManager.shared)
 
     var body: some View {
         List(bookedEventsViewModel.bookedEvents, id: \.id) { bookedEvent in
@@ -64,12 +63,10 @@ struct EventsBookedView: View {
         }
         .onAppear {
             // Fetch past booked events when the view appears
-            bookedEventsViewModel.getBookedEvents { fetchedEvents in
-                // This is the completion handler, and `fetchedEvents` is an array of [BookedEvent]
-                // Do something with the fetched events
+            bookedEventsViewModel.getBookedEvents {
+                // This is the completion handler, and you can do something if needed
             }
         }
-//        .navigationBarTitle("Booked Events")
         .navigationBarItems(leading: Button("Back") {
             // Dismiss this view and navigate back to the previous view
             presentationMode.wrappedValue.dismiss()
