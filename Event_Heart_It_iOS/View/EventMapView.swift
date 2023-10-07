@@ -200,40 +200,70 @@ struct EventMapView: View {
     @ObservedObject var locationManager = LocationManager()
     @State private var events: [EventData] = [] // Store the retrieved events
     @State private var cancellables: Set<AnyCancellable> = [] // For managing Combine subscriptions
+    
+    // Create an instance of LoginViewModel
+    let loginViewModel = LoginViewModel()
+    @State private var isLoggedOut = false
 
     var body: some View {
-        TabView {
-            VStack {
-                MapViewContainer(userLocation: $locationManager.userLocation, events: events)
-                    .onAppear {
-                        // Check the authorization status before requesting location updates
-                        if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
-                            locationManager.startUpdatingLocation()
-                        } else {
-                            // Handle other cases as needed
+        NavigationView {
+            TabView {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            // Perform log out action here
+                            loginViewModel.logout { success in
+                                if success {
+                                    print("Log out successful.")
+                                    isLoggedOut = true
+                                } else {
+                                    // Handle the case where logout failed
+                                    print("Failed to log out.")
+                                }
+                            }
+                        }) {
+                            Text("Log Out")
                         }
-
-                        // Fetch events near the user's location
-                        fetchEventsNearUserLocation()
+                    }
+                    
+                    MapViewContainer(userLocation: $locationManager.userLocation, events: events)
+                        .onAppear {
+                            // Check the authorization status before requesting location updates
+                            if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
+                                locationManager.startUpdatingLocation()
+                            } else {
+                                // Handle other cases as needed
+                            }
+                            
+                            // Fetch events near the user's location
+                            fetchEventsNearUserLocation()
+                        }
+                    
+                }
+                .padding()
+                .navigationTitle("")
+                .navigationBarHidden(true)
+                .tabItem {
+                    Label("Events", systemImage: "map.fill")
+                }
+                
+                EventsBookedView()
+                    .tabItem {
+                        Label("Booked", systemImage: "book.fill")
+                    }
+                
+                ReviewsView()
+                    .tabItem {
+                        Label("Reviews", systemImage: "star.fill")
                     }
             }
-            .padding()
-            .navigationBarTitle("", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
-            .tabItem {
-                Label("Events", systemImage: "map.fill")
-            }
-
-            EventsBookedView()
-                .tabItem {
-                    Label("Booked", systemImage: "book.fill")
-                }
-
-            ReviewsView()
-                .tabItem {
-                    Label("Reviews", systemImage: "star.fill")
-                }
         }
+        // Navigate to ContentView when isLoggedOut is true
+        .background(
+            NavigationLink("", destination: ContentView(), isActive: $isLoggedOut)
+                .hidden()
+        )
         .navigationBarTitle("", displayMode: .inline) // Add this line to hide the title
         .navigationBarBackButtonHidden(true) // Add this line to hide the back button
     }

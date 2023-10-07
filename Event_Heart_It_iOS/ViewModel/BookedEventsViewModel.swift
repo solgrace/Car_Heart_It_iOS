@@ -294,5 +294,23 @@ class BookedEventsViewModel: ObservableObject {
             completion(true, nil)
         }
     }
+    
+    
+    
+    
+    
+//    // Clears bookedEvents data after user logs out:
+//
+//    // Function to clear booked events data
+//    func clearBookedEvents() {
+//        self.bookedEvents = []  // Clear the array
+//
+//        print("After clearing self.bookedEvents: \(self.bookedEvents)")
+//
+//        // Clear the data in CoreData
+//        coreDataManager.clearBookedEventsFromCoreData()
+//
+//        print("coreDataManager.clearBookedEventsFromCoreData() called!")
+//    }
 
 }

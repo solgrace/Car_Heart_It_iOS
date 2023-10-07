@@ -279,5 +279,31 @@ class CoreDataManager {
         // Call the completion handler once all events are saved
         completion()
     }
+    
+    
+    
+    
+    
+//    // Clears bookedEvents data after user logs out:
+//
+//    // Function to clear booked events data from CoreData
+//    func clearBookedEventsFromCoreData() {
+//        let context = persistentContainer.viewContext
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookedEvent")
+//
+//        do {
+//            let result = try context.fetch(fetchRequest)
+//
+//            for case let bookedEvent as NSManagedObject in result {
+//                context.delete(bookedEvent)
+//            }
+//
+//            // Save the context after making changes
+//            saveContext()
+//            print("Booked events cleared from CoreData successfully")
+//        } catch {
+//            print("Failed to clear booked events from CoreData: \(error.localizedDescription)")
+//        }
+//    }
 
 }

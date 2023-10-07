@@ -52,6 +52,8 @@ struct SignupView: View {
                 .padding()
         }
         .padding()
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
     }
     
 //    // Function to call the signup logic from SignupViewModel (using CoreData)

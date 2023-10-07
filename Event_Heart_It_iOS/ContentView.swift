@@ -33,6 +33,8 @@ struct ContentView: View {
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
         }
+        .navigationBarTitle("", displayMode: .inline) // Just added this to test if "<" will be removed
+        .navigationBarBackButtonHidden(true) // Add this line to hide the back button
     }
 }
 
