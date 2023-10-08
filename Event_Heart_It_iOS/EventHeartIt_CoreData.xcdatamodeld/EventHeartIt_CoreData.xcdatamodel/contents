@@ -21,4 +21,10 @@
         <attribute name="lastName" optional="YES" attributeType="String"/>
         <attribute name="password" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="Review" representedClassName="Review" syncable="YES" codeGenerationType="class">
+        <attribute name="eventID" optional="YES" attributeType="String"/>
+        <attribute name="reviewerFirstName" optional="YES" attributeType="String"/>
+        <attribute name="reviewerLastName" optional="YES" attributeType="String"/>
+        <attribute name="reviewText" optional="YES" attributeType="String"/>
+    </entity>
 </model>

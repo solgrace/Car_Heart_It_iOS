@@ -204,6 +204,8 @@ struct EventMapView: View {
     // Create an instance of LoginViewModel
     let loginViewModel = LoginViewModel()
     @State private var isLoggedOut = false
+    
+//    let coreDataManager = CoreDataManager.shared
 
     var body: some View {
         NavigationView {
@@ -252,11 +254,18 @@ struct EventMapView: View {
                     .tabItem {
                         Label("Booked", systemImage: "book.fill")
                     }
-                
+
                 ReviewsView()
                     .tabItem {
                         Label("Reviews", systemImage: "star.fill")
                     }
+                
+//                NavigationLink(destination: ReviewsView()) {
+//                    Label("Reviews", systemImage: "star.fill")
+//                }
+//                .tabItem {
+//                    Label("Reviews", systemImage: "star.fill")
+//                }
             }
         }
         // Navigate to ContentView when isLoggedOut is true
