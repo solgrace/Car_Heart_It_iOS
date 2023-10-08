@@ -212,11 +212,18 @@ class BookedEventsViewModel: ObservableObject {
         let databaseRef = Database.database().reference().child("Users").child(userID).child("BookedEvents")
 
         let bookedEventKey = databaseRef.childByAutoId().key ?? ""
-
+        
         let bookedEventDictionary: [String: Any] = [
             "eventID": sanitizedEventID,
             "eventName": event.name,
+            "eventLink": event.link,
+            "eventStartDate": event.start_time,
             "eventEndDate": event.end_time,
+            "eventIsVirtual": event.is_virtual,
+            "eventFullAddress": event.venue?.full_address,
+            "eventCity": event.venue?.city,
+            "eventState": event.venue?.state,
+            "eventCountry": event.venue?.country
             // Add other details you want to store
         ]
 
@@ -258,29 +265,36 @@ class BookedEventsViewModel: ObservableObject {
         let databaseRef = Database.database().reference().child("Users").child(userID).child("BookedEvents")
 
         // Fetch booked events from Firebase
-        databaseRef.observeSingleEvent(of: .value) { (snapshot, error) in
-            if let error = error {
-                completion(false, "Failed to fetch booked events from Firebase")
-                return
-            }
+        databaseRef.observeSingleEvent(of: .value, with: { snapshot in
+//            if let error = error {
+//                completion(false, "Failed to fetch booked events from Firebase")
+//                return
+//            }
 
             guard let eventsData = snapshot.value as? [String: [String: Any]] else {
                 print("Failed to fetch booked events from Firebase")
                 completion(false, "Failed to fetch booked events from Firebase")
                 return
             }
-
+            
             // Convert Firebase data to BookedEventStruct
             let firebaseEvents = eventsData.compactMap { (key, value) -> BookedEventStruct? in
                 guard
                     let eventID = value["eventID"] as? String,
                     let eventName = value["eventName"] as? String,
-                    let eventEndDate = value["eventEndDate"] as? TimeInterval
+                    let eventLink = value["eventLink"] as? String,
+                    let eventStartDate = value["eventStartDate"] as? TimeInterval,
+                    let eventEndDate = value["eventEndDate"] as? TimeInterval,
+                    let eventIsVirtual = value["eventIsVirtual"] as? Bool,
+                    let eventFullAddress = value["eventFullAddress"] as? String,
+                    let eventCity = value["eventCity"] as? String,
+                    let eventState = value["eventState"] as? String,
+                    let eventCountry = value["eventCountry"] as? String
                 else {
                     return nil
                 }
 
-                return BookedEventStruct(eventID: eventID, eventName: eventName, eventEndDate: eventEndDate)
+                return BookedEventStruct(eventID: eventID, eventName: eventName, eventLink: eventLink, eventStartDate: eventStartDate, eventEndDate: eventEndDate, eventIsVirtual: eventIsVirtual, eventFullAddress: eventFullAddress, eventCity: eventCity, eventState: eventState, eventCountry: eventCountry)
             }
 
             // Update the local array and CoreData
@@ -292,6 +306,10 @@ class BookedEventsViewModel: ObservableObject {
             }
 
             completion(true, nil)
+            
+        }) { error in
+            print("Error fetching data: \(error.localizedDescription)")
+            completion(false, "Failed to fetch booked events from Firebase")
         }
     }
     

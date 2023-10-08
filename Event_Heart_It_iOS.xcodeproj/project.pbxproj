@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6412470C2ACBB90700651A8F /* BookedEventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6412470B2ACBB90700651A8F /* BookedEventsViewModel.swift */; };
-		641247192ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 641247172ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld */; };
 		6447F3C12AC2CC300040B3F7 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 6447F3C02AC2CC300040B3F7 /* MapboxMaps */; };
 		6447F3C32AC2CC440040B3F7 /* EventMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447F3C22AC2CC440040B3F7 /* EventMapView.swift */; };
 		6447F3C52AC2D4BB0040B3F7 /* MapViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447F3C42AC2D4BB0040B3F7 /* MapViewContainer.swift */; };
@@ -36,11 +35,11 @@
 		64E087312AD0AD3600922106 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 64E087302AD0AD3600922106 /* FirebaseFirestore */; };
 		64E087332AD0AD3600922106 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 64E087322AD0AD3600922106 /* FirebaseStorage */; };
 		64E087352AD0C30A00922106 /* BookedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E087342AD0C30A00922106 /* BookedEvent.swift */; };
+		64F1C0AC2AD27E7400187FDB /* EventHeartIt_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64F1C0AA2AD27E7400187FDB /* EventHeartIt_CoreData.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6412470B2ACBB90700651A8F /* BookedEventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedEventsViewModel.swift; sourceTree = "<group>"; };
-		641247182ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventHeartIt_CoreDataDB.xcdatamodel; sourceTree = "<group>"; };
 		6447F3C22AC2CC440040B3F7 /* EventMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMapView.swift; sourceTree = "<group>"; };
 		6447F3C42AC2D4BB0040B3F7 /* MapViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewContainer.swift; sourceTree = "<group>"; };
 		6447F3CC2AC40F110040B3F7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -64,6 +63,7 @@
 		64C503F12AC61CC400FE8219 /* EventAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAPIClient.swift; sourceTree = "<group>"; };
 		64E087292AD0AAB400922106 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		64E087342AD0C30A00922106 /* BookedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedEvent.swift; sourceTree = "<group>"; };
+		64F1C0AB2AD27E7400187FDB /* EventHeartIt_CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventHeartIt_CoreData.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,9 +110,9 @@
 				6487C20B2ABD9E4600DF8963 /* View */,
 				64C503F02AC61C7000FE8219 /* Networking */,
 				6487C20C2ABEA77100DF8963 /* Data */,
+				64F1C0AA2AD27E7400187FDB /* EventHeartIt_CoreData.xcdatamodeld */,
 				6487C1FA2ABD982B00DF8963 /* Assets.xcassets */,
 				6487C1FF2ABD982B00DF8963 /* Persistence.swift */,
-				641247172ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld */,
 				6487C1FC2ABD982B00DF8963 /* Preview Content */,
 			);
 			path = Event_Heart_It_iOS;
@@ -271,6 +271,7 @@
 				64607BDD2ACA45CD004EF95B /* EachEventView.swift in Sources */,
 				64607BD92ACA1952004EF95B /* EventsBookedView.swift in Sources */,
 				6487C2142ABEA87100DF8963 /* CoreDataManager.swift in Sources */,
+				64F1C0AC2AD27E7400187FDB /* EventHeartIt_CoreData.xcdatamodeld in Sources */,
 				648C0F9D2AC63A0700E43719 /* Event.swift in Sources */,
 				6447F3C32AC2CC440040B3F7 /* EventMapView.swift in Sources */,
 				6487C1F72ABD982700DF8963 /* Event_Heart_It_iOSApp.swift in Sources */,
@@ -279,7 +280,6 @@
 				6487C2182ABEB39B00DF8963 /* LoginView.swift in Sources */,
 				6487C21A2ABEB3AA00DF8963 /* SignupView.swift in Sources */,
 				6447F3CD2AC40F110040B3F7 /* LocationManager.swift in Sources */,
-				641247192ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,13 +535,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		641247172ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodeld */ = {
+		64F1C0AA2AD27E7400187FDB /* EventHeartIt_CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				641247182ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodel */,
+				64F1C0AB2AD27E7400187FDB /* EventHeartIt_CoreData.xcdatamodel */,
 			);
-			currentVersion = 641247182ACC0B1F00651A8F /* EventHeartIt_CoreDataDB.xcdatamodel */;
-			path = EventHeartIt_CoreDataDB.xcdatamodeld;
+			currentVersion = 64F1C0AB2AD27E7400187FDB /* EventHeartIt_CoreData.xcdatamodel */;
+			path = EventHeartIt_CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

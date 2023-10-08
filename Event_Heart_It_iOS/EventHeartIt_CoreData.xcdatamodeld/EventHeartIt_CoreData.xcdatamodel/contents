@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BookedEvent" representedClassName="BookedEvent" syncable="YES" codeGenerationType="class">
+        <attribute name="eventCity" optional="YES" attributeType="String"/>
+        <attribute name="eventCountry" optional="YES" attributeType="String"/>
+        <attribute name="eventEndDate" optional="YES" attributeType="String"/>
+        <attribute name="eventFullAddress" optional="YES" attributeType="String"/>
+        <attribute name="eventID" optional="YES" attributeType="String"/>
+        <attribute name="eventIsVirtual" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="eventLink" optional="YES" attributeType="String"/>
+        <attribute name="eventName" optional="YES" attributeType="String"/>
+        <attribute name="eventStartDate" optional="YES" attributeType="String"/>
+        <attribute name="eventState" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="BookedEvents" representedClassName="BookedEvents" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CoreDataUser" representedClassName="CoreDataUser" syncable="YES" codeGenerationType="class">
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="firstName" optional="YES" attributeType="String"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
+    </entity>
+</model>

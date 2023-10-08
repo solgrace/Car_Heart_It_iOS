@@ -35,7 +35,7 @@
 //    let container: NSPersistentContainer
 //
 //    init(inMemory: Bool = false) {
-//        container = NSPersistentContainer(name: "EventHeartIt_CoreDataDB")
+//        container = NSPersistentContainer(name: "EventHeartIt_CoreData")
 //        if inMemory {
 //            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
 //        }
@@ -85,7 +85,7 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "EventHeartIt_CoreDataDB")
+        container = NSPersistentContainer(name: "EventHeartIt_CoreData")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
@@ -96,14 +96,14 @@ struct PersistenceController {
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
-    
+
     // Additional functions for saving, deleting, and fetching data...
 
     func saveBookedEvent(name: String) {
         let context = container.viewContext
         let bookedEvent = BookedEvents(context: context)
         bookedEvent.name = name
-        
+
         do {
             try context.save()
         } catch {

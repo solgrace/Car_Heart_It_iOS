@@ -178,7 +178,7 @@ class CoreDataManager {
     private init() {}
 
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "EventHeartIt_CoreDataDB")
+        let container = NSPersistentContainer(name: "EventHeartIt_CoreData")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -215,7 +215,14 @@ class CoreDataManager {
         // Set properties of the BookedEvent entity
         bookedEvent.setValue(event.event_id, forKey: "eventID")
         bookedEvent.setValue(event.name, forKey: "eventName")
+        bookedEvent.setValue(event.link, forKey:"eventLink")
+        bookedEvent.setValue(event.start_time, forKey: "eventStartDate")
         bookedEvent.setValue(event.end_time, forKey: "eventEndDate")
+        bookedEvent.setValue(event.is_virtual, forKey:"eventIsVirtual")
+        bookedEvent.setValue(event.venue?.full_address, forKey:"eventFullAddress")
+        bookedEvent.setValue(event.venue?.city, forKey:"eventCity")
+        bookedEvent.setValue(event.venue?.state, forKey:"eventState")
+        bookedEvent.setValue(event.venue?.country, forKey:"eventCountry")
         // Add other properties as needed
 
         saveContext() // Save the context after making changes
@@ -227,17 +234,24 @@ class CoreDataManager {
     // Function to fetch past booked events from CoreData
     func fetchBookedEvents() -> [BookedEventStruct] {
         let context = persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookedEvent")
+        let fetchRequest: NSFetchRequest<BookedEvent> = BookedEvent.fetchRequest()
 
         do {
             let result = try context.fetch(fetchRequest)
-            
+
             // Convert instances of BookedEvent to BookedEventStruct
-            let events = (result as? [BookedEvent] ?? []).map { bookedEvent in
-                BookedEventStruct(
+            let events = result.map { bookedEvent -> BookedEventStruct in
+                return BookedEventStruct(
                     eventID: bookedEvent.eventID ?? "",
                     eventName: bookedEvent.eventName ?? "",
-                    eventEndDate: TimeInterval(bookedEvent.eventEndDate ?? "") ?? 0
+                    eventLink: bookedEvent.eventLink ?? "",
+                    eventStartDate: TimeInterval(bookedEvent.eventStartDate ?? "") ?? 0,
+                    eventEndDate: TimeInterval(bookedEvent.eventEndDate ?? "") ?? 0,
+                    eventIsVirtual: bookedEvent.eventIsVirtual ?? false,
+                    eventFullAddress: bookedEvent.eventFullAddress ?? "",
+                    eventCity: bookedEvent.eventCity ?? "",
+                    eventState: bookedEvent.eventState ?? "",
+                    eventCountry: bookedEvent.eventCountry ?? ""
                 )
             }
 
@@ -248,6 +262,36 @@ class CoreDataManager {
             return []
         }
     }
+//    func fetchBookedEvents() -> [BookedEventStruct] {
+//        let context = persistentContainer.viewContext
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookedEvent")
+//
+//        do {
+//            let result = try context.fetch(fetchRequest)
+//
+//            // Convert instances of BookedEvent to BookedEventStruct
+//            let events = (result as? [BookedEvent] ?? []).map { bookedEvent in
+//                BookedEventStruct(
+//                    eventID: bookedEvent.eventID ?? "",
+//                    eventName: bookedEvent.eventName ?? "",
+//                    eventLink: bookedEvent.eventLink ?? "",
+//                    eventStartDate: TimeInterval(bookedEvent.eventStartDate ?? "") ?? 0,
+//                    eventEndDate: TimeInterval(bookedEvent.eventEndDate ?? "") ?? 0,
+//                    eventIsVirtual: bookedEvent.eventIsVirtual ?? "",
+//                    eventFullAddress: bookedEvent.eventFullAddress ?? "",
+//                    eventCity: bookedEvent.eventCity ?? "",
+//                    eventState: bookedEvent.eventState ?? "",
+//                    eventCountry: bookedEvent.eventCountry ?? ""
+//                )
+//            }
+//
+//            print("Fetched \(events.count) booked events from CoreData")
+//            return events
+//        } catch {
+//            print("Failed to fetch booked events: \(error.localizedDescription)")
+//            return []
+//        }
+//    }
     
     
     
@@ -269,7 +313,14 @@ class CoreDataManager {
             // Set properties of the BookedEvent entity
             bookedEvent.eventID = firebaseEvent.eventID
             bookedEvent.eventName = firebaseEvent.eventName
+            bookedEvent.eventLink = firebaseEvent.eventLink
+            bookedEvent.eventStartDate = "\(firebaseEvent.eventStartDate)"
             bookedEvent.eventEndDate = "\(firebaseEvent.eventEndDate)" // Assuming eventEndDate is stored as String in CoreData
+            bookedEvent.eventIsVirtual = firebaseEvent.eventIsVirtual
+            bookedEvent.eventFullAddress = firebaseEvent.eventFullAddress
+            bookedEvent.eventCity = firebaseEvent.eventCity
+            bookedEvent.eventState = firebaseEvent.eventState
+            bookedEvent.eventCountry = firebaseEvent.eventCountry
             // Add other properties as needed
 
             // Save the context after making changes
