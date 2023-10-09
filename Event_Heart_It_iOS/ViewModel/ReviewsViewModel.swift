@@ -22,62 +22,97 @@ class ReviewsViewModel: ObservableObject {
     internal init(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
     }
-
     
-    // Function to fetch the user's name from CoreData
-    func fetchUserNameFromCoreData() -> (firstName: String, lastName: String)? {
-        let context = persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<CoreDataUser> = CoreDataUser.fetchRequest()
+    
+    // Function to fetch the user's name from Firebase
+    func fetchUserNameFromFirebase(userID: String, completion: @escaping ((String, String)?) -> Void) {
+        var currentUser: (firstName: String, lastName: String)?
 
-        do {
-            let result = try context.fetch(fetchRequest)
-            print("Fetch request successful. Number of results: \(result.count)")
+        let ref = Database.database().reference().child("Users").child(userID)
+        
+        print("Fetching user data from Firebase for userID: \(userID)")
 
-            // Assuming you have a way to identify the current user, adjust the predicate accordingly
-            if let currentUser = result.first {
-                print("Current user fetched from CoreData: \(currentUser)")
-                return (currentUser.firstName ?? "", currentUser.lastName ?? "")
+        ref.observeSingleEvent(of: .value) { snapshot in
+            if let userData = snapshot.value as? [String: Any],
+               let firstName = userData["firstName"] as? String,
+               let lastName = userData["lastName"] as? String {
+                   currentUser = (firstName, lastName)
+                   print("User data fetched successfully. First Name: \(firstName), Last Name: \(lastName)")
+                   completion(currentUser)
             } else {
-                print("No current user found in CoreData.")
-                return nil
+                print("Failed to fetch user data from Firebase. Snapshot value: \(snapshot.value ?? "nil")")
+                completion(nil) // Handle the case where data is not available
             }
-        } catch {
-            print("Failed to fetch user from CoreData: \(error.localizedDescription)")
-            return nil
         }
     }
+    
+    
+//    func submitReview(bookedEvent: BookedEventStruct, reviewText: String) {
+//        print("submitReview pressed.")
+//
+//        // Fetch the user's name from Firebase
+//        fetchUserNameFromFirebase(userID: "yourUserID") { result in
+//            if let userName = result {
+//                print("User name fetched from Firebase: \(userName.0), \(userName.1)")
+//
+//                // Use the provided reviewText
+//                guard !reviewText.isEmpty else {
+//                    // Handle the case where the review text is empty
+//                    print("Review text is empty.")
+//                    return
+//                }
+//
+//                print("Review text is not empty:", reviewText)
+//
+//                // Call your functions to save the review to CoreData and Firebase
+//                self.saveReviewToCoreData(bookedEvent: bookedEvent, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
+//                print("Review saved to CoreData.")
+//
+//                self.saveReviewToFirebase(eventID: bookedEvent.eventID, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
+//                print("Review saved to Firebase.")
+//            } else {
+//                print("Failed to fetch user data from Firebase.")
+//            }
+//        }
+//    }
     
     
     func submitReview(bookedEvent: BookedEventStruct, reviewText: String) {
         print("submitReview pressed.")
-        
-        // Fetch the user's name from CoreData
-        guard let userName = fetchUserNameFromCoreData() else {
-            // Handle the case where user name is not available
-            print("User name not available.")
-            return
-        }
-        
-        print("User name fetched from CoreData:", userName)
 
-        // Use the provided reviewText
-        guard !reviewText.isEmpty else {
-            // Handle the case where the review text is empty
-            print("Review text is empty.")
-            return
-        }
-        
-        print("Review text is not empty:", reviewText)
+        // Check if the user is currently authenticated
+        if let currentUser = Auth.auth().currentUser {
+            // Fetch the user's name from Firebase using the authenticated user's ID
+            fetchUserNameFromFirebase(userID: currentUser.uid) { result in
+                if let userName = result {
+                    print("User name fetched from Firebase: \(userName.0), \(userName.1)")
 
-        // Call your functions to save the review to CoreData and Firebase
-        saveReviewToCoreData(bookedEvent: bookedEvent, reviewerFirstName: userName.firstName, reviewerLastName: userName.lastName, reviewText: reviewText)
-        print("Review saved to CoreData.")
-        
-        saveReviewToFirebase(eventID: bookedEvent.eventID, reviewerFirstName: userName.firstName, reviewerLastName: userName.lastName, reviewText: reviewText)
-        print("Review saved to Firebase.")
+                    // Use the provided reviewText
+                    guard !reviewText.isEmpty else {
+                        // Handle the case where the review text is empty
+                        print("Review text is empty.")
+                        return
+                    }
+
+                    print("Review text is not empty:", reviewText)
+
+                    // Call your functions to save the review to CoreData and Firebase
+                    self.saveReviewToCoreData(bookedEvent: bookedEvent, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
+                    print("Review saved to CoreData.")
+
+                    self.saveReviewToFirebase(eventID: bookedEvent.eventID, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
+                    print("Review saved to Firebase.")
+                } else {
+                    print("Failed to fetch user data from Firebase.")
+                }
+            }
+        } else {
+            print("User is not authenticated.")
+            // Handle the case where the user is not authenticated, perhaps show a login screen
+        }
     }
-    
-    
+
+        
     // Function to save a review to CoreData
     func saveReviewToCoreData(bookedEvent: BookedEventStruct, reviewerFirstName: String, reviewerLastName: String, reviewText: String) {
         let context = persistentContainer.viewContext

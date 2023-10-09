@@ -113,7 +113,7 @@ import CoreLocation // Import CoreLocation for CLLocationCoordinate2D
 
 //struct EventAPIClient {
 class EventAPIClient: ObservableObject {
-    let apiKey = "" // Replace with your actual API key
+    let apiKey = "b5239e4561msh312e2c785780136p103fe5jsn21c47c0afe5b" // Replace with your actual API key
     let baseURL = "https://real-time-events-search.p.rapidapi.com"
 
     @Published var events: [APIResponse] = []
