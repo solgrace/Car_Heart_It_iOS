@@ -10,15 +10,11 @@ import CoreData
 import Firebase
 
 class ReviewsViewModel: ObservableObject {
-    
+        
     @Published var displayedReviews: [Review] = []
     
-//    private let persistentContainer: NSPersistentContainer
     let persistentContainer: NSPersistentContainer
-    
-//    init(persistentContainer: NSPersistentContainer) {
-//        self.persistentContainer = persistentContainer
-//    }
+
     internal init(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
     }
@@ -47,37 +43,46 @@ class ReviewsViewModel: ObservableObject {
     }
     
     
-//    func submitReview(bookedEvent: BookedEventStruct, reviewText: String) {
+//    func submitReview(bookedEvent: BookedEventStruct, reviewText: String, completion: @escaping () -> Void) {
 //        print("submitReview pressed.")
 //
-//        // Fetch the user's name from Firebase
-//        fetchUserNameFromFirebase(userID: "yourUserID") { result in
-//            if let userName = result {
-//                print("User name fetched from Firebase: \(userName.0), \(userName.1)")
+//        // Check if the user is currently authenticated
+//        if let currentUser = Auth.auth().currentUser {
+//            // Fetch the user's name from Firebase using the authenticated user's ID
+//            fetchUserNameFromFirebase(userID: currentUser.uid) { result in
+//                if let userName = result {
+//                    print("User name fetched from Firebase: \(userName.0), \(userName.1)")
 //
-//                // Use the provided reviewText
-//                guard !reviewText.isEmpty else {
-//                    // Handle the case where the review text is empty
-//                    print("Review text is empty.")
-//                    return
+//                    // Use the provided reviewText
+//                    guard !reviewText.isEmpty else {
+//                        // Handle the case where the review text is empty
+//                        print("Review text is empty.")
+//                        return
+//                    }
+//
+//                    print("Review text is not empty:", reviewText)
+//
+//                    // Call your functions to save the review to CoreData and Firebase
+//                    self.saveReviewToCoreData(bookedEvent: bookedEvent, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
+//                    print("Review saved to CoreData.")
+//
+//                    self.saveReviewToFirebase(eventID: bookedEvent.eventID, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
+//                    print("Review saved to Firebase.")
+//
+//                    // Call the completion handler after saving the review
+//                    completion()
+//                } else {
+//                    print("Failed to fetch user data from Firebase.")
 //                }
-//
-//                print("Review text is not empty:", reviewText)
-//
-//                // Call your functions to save the review to CoreData and Firebase
-//                self.saveReviewToCoreData(bookedEvent: bookedEvent, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
-//                print("Review saved to CoreData.")
-//
-//                self.saveReviewToFirebase(eventID: bookedEvent.eventID, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
-//                print("Review saved to Firebase.")
-//            } else {
-//                print("Failed to fetch user data from Firebase.")
 //            }
+//        } else {
+//            print("User is not authenticated.")
+//            // Handle the case where the user is not authenticated, perhaps show a login screen
 //        }
 //    }
     
     
-    func submitReview(bookedEvent: BookedEventStruct, reviewText: String) {
+    func submitReview(bookedEvent: BookedEventStruct, reviewText: String, completion: @escaping () -> Void) {
         print("submitReview pressed.")
 
         // Check if the user is currently authenticated
@@ -102,6 +107,13 @@ class ReviewsViewModel: ObservableObject {
 
                     self.saveReviewToFirebase(eventID: bookedEvent.eventID, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
                     print("Review saved to Firebase.")
+
+                    // Fetch all reviews after submitting
+                    self.fetchAllReviewsFromCoreData { reviews in
+                        // Update the displayedReviews array with all reviews
+                        self.displayedReviews = reviews
+                        completion() // Call the completion handler after updating the reviews
+                    }
                 } else {
                     print("Failed to fetch user data from Firebase.")
                 }
@@ -166,8 +178,44 @@ class ReviewsViewModel: ObservableObject {
     }
     
     
-    // Function to fetch reviews from CoreData
-    func fetchReviewsFromCoreData(for eventID: String, completion: @escaping ([Review]) -> Void) {
+//    // Function to fetch reviews from CoreData
+//    func fetchReviewsFromCoreData(for eventID: String, completion: @escaping ([Review]) -> Void) {
+//        let context = persistentContainer.viewContext
+//        let fetchRequest: NSFetchRequest<Review> = Review.fetchRequest()
+//
+//        // Set a predicate to filter reviews for the specific eventID
+//        fetchRequest.predicate = NSPredicate(format: "eventID == %@", eventID)
+//
+//        do {
+//            // Fetch reviews from CoreData
+//            let reviews = try context.fetch(fetchRequest)
+//            displayedReviews = reviews // Assign the fetched reviews
+//            completion(reviews)
+//        } catch {
+//            print("Failed to fetch reviews from CoreData: \(error.localizedDescription)")
+//            completion([])
+//        }
+//    }
+    
+    
+    // Function to fetch all reviews from CoreData
+    func fetchAllReviewsFromCoreData(completion: @escaping ([Review]) -> Void) {
+        let context = persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Review> = Review.fetchRequest()
+
+        do {
+            // Fetch all reviews from CoreData
+            let reviews = try context.fetch(fetchRequest)
+            completion(reviews)
+        } catch {
+            print("Failed to fetch all reviews from CoreData: \(error.localizedDescription)")
+            completion([])
+        }
+    }
+
+    
+    // Function to fetch unique reviews for a specific event from CoreData
+    func fetchUniqueReviewsForEventFromCoreData(eventID: String, completion: @escaping ([Review]) -> Void) {
         let context = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<Review> = Review.fetchRequest()
 
@@ -175,15 +223,23 @@ class ReviewsViewModel: ObservableObject {
         fetchRequest.predicate = NSPredicate(format: "eventID == %@", eventID)
 
         do {
-            // Fetch reviews from CoreData
+            // Fetch reviews for the specific event from CoreData
             let reviews = try context.fetch(fetchRequest)
-            displayedReviews = reviews // Assign the fetched reviews
-            completion(reviews)
+            print("Fetched \(reviews.count) reviews for eventID: \(eventID)")
+
+            DispatchQueue.main.async {
+                completion(reviews)
+            }
         } catch {
-            print("Failed to fetch reviews from CoreData: \(error.localizedDescription)")
-            completion([])
+            print("Failed to fetch reviews for the specific event from CoreData: \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                completion([])
+            }
         }
     }
+
+    
+    
     
     
 //    // Function to fetch reviews for a specific event

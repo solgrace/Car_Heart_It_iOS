@@ -11,15 +11,12 @@ struct ReviewsView: View {
 
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var bookedEventsViewModel = BookedEventsViewModel(coreDataManager: CoreDataManager.shared)
-//    @ObservedObject private var reviewsViewModel: ReviewsViewModel
-//    @StateObject private var reviewsViewModel: ReviewsViewModel
     @StateObject private var reviewsViewModel = ReviewsViewModel(persistentContainer: CoreDataManager.shared.persistentContainer)
     @State private var reviewText: String = ""
-    @State private var eventReviews: [Review] = []
+    @State private var selectedEvent: BookedEventStruct?
     
-//    init(reviewsViewModel: ReviewsViewModel) {
-//        _reviewsViewModel = ObservedObject(wrappedValue: reviewsViewModel)
-//    }
+//    @State private var selectedEvent: BookedEvent?
+//    @State private var selectedEvent: BookedEventStruct? // Adjust the type
 
     var body: some View {
         List {
@@ -42,12 +39,6 @@ struct ReviewsView: View {
                         Text(formatDate(bookedEvent.eventEndDate))
                             .padding(.vertical, 5)
 
-//                        Text("Is Virtual:")
-//                            .font(.body)
-//                            .foregroundColor(.gray)
-//                        Text(String(describing: bookedEvent.eventIsVirtual))
-//                            .padding(.vertical, 5)
-
                         Text("Full Address:")
                             .font(.body)
                             .foregroundColor(.gray)
@@ -57,19 +48,25 @@ struct ReviewsView: View {
                         TextField("Leave a review...", text: $reviewText)
                             .padding(.vertical, 10)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
+
                         Button("Submit Review") {
-                            reviewsViewModel.submitReview(bookedEvent: bookedEvent, reviewText: reviewText)
+                            // Use the bookedEvent directly without setting selectedEvent
+                            reviewsViewModel.submitReview(bookedEvent: bookedEvent, reviewText: reviewText) {
+                                // Reload reviews for the current event after submitting
+                                reviewsViewModel.fetchUniqueReviewsForEventFromCoreData(eventID: bookedEvent.eventID) { reviews in
+                                    // Handle the fetched reviews
+                                    DispatchQueue.main.async {
+                                        reviewsViewModel.displayedReviews = reviews
+                                    }
+                                }
+                            }
                         }
-                        
+
                         // Display reviews for the current event
-                        ForEach(reviewsViewModel.displayedReviews, id: \.id) { review in
+                        ForEach(reviewsViewModel.displayedReviews.filter { $0.eventID == bookedEvent.eventID }, id: \.id) { review in
                             Text("\((review.reviewerFirstName ?? "") + (review.reviewerLastName ?? "")): \(review.reviewText ?? "")")
                                 .padding(.vertical, 5)
                         }
-//                        ForEach(reviewsViewModel.displayedReviews, id: \.id) { review in
-//                            Text("\(review.reviewerFirstName) \(review.reviewerLastName): \(review.reviewText)")
-//                                .padding(.vertical, 5)
-//                        }
                     }
                 }
                 .padding(.vertical, 18)
@@ -81,20 +78,14 @@ struct ReviewsView: View {
             bookedEventsViewModel.getBookedEvents {
                 // This is the completion handler, and you can do something if needed
             }
-            
-            
-//            reviewsViewModel.fetchUserNameFromCoreData()
-            
-            
-            // Fetch reviews for the selected event
-            reviewsViewModel.fetchReviewsFromCoreData(for: bookedEventsViewModel.bookedEvents.first?.eventID ?? "") { reviews in
+
+            // Fetch all reviews when the view appears
+            reviewsViewModel.fetchAllReviewsFromCoreData { reviews in
                 // Handle the fetched reviews
-                // This closure is the completion handler
+                DispatchQueue.main.async {
+                    reviewsViewModel.displayedReviews = reviews
+                }
             }
-            
-            
-//            // Fetch reviews for the selected event
-//            fetchReviewsForEvent(eventID: bookedEventsViewModel.bookedEvents.first?.eventID ?? "")
         }
         .navigationBarItems(leading: Button("Back") {
             // Dismiss this view and navigate back to the previous view
@@ -105,27 +96,7 @@ struct ReviewsView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
     }
-    
-    
-    
-    
-    
-//    // Function to fetch reviews for the selected event
-//    func fetchReviewsForEvent(eventID: String) {
-//        reviewsViewModel.fetchReviewsFromCoreData(for: eventID) { reviews in
-//            eventReviews = reviews
-//        }
-//    }
 
-    
-//    // Function to fetch reviews for the selected event
-//    func fetchReviewsForEvent(eventID: String) {
-//        reviewsViewModel.fetchReviewsForEvent(eventID: eventID) { reviews in
-//            eventReviews = reviews
-//        }
-//    }
-
-    
     func formatDate(_ timeInterval: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: timeInterval)
         let formatter = DateFormatter()
