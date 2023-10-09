@@ -108,12 +108,29 @@ class ReviewsViewModel: ObservableObject {
                     self.saveReviewToFirebase(eventID: bookedEvent.eventID, reviewerFirstName: userName.0, reviewerLastName: userName.1, reviewText: reviewText)
                     print("Review saved to Firebase.")
 
+                    
+//                    // Fetch all reviews after submitting
+//                    self.fetchAllReviewsFromCoreData { reviews in
+//                        // Update the displayedReviews array with all reviews
+//
+////                        print("BEFORE: FETCHING THE displayedReviews array with all reviews: \(self.displayedReviews)")
+//                        self.displayedReviews = reviews
+//                        completion() // Call the completion handler after updating the reviews
+////                        print("AFTER: FETCHING THE displayedReviews array with all reviews: \(self.displayedReviews)")
+//
+//                    }
+                    
+                    
                     // Fetch all reviews after submitting
-                    self.fetchAllReviewsFromCoreData { reviews in
-                        // Update the displayedReviews array with all reviews
-                        self.displayedReviews = reviews
-                        completion() // Call the completion handler after updating the reviews
+                    self.fetchAllReviewsFromCoreData { allReviews in
+                        // Handle the fetched all reviews
+                        DispatchQueue.main.async {
+                            print("All Reviews after fetching all reviews:", allReviews)
+                            self.displayedReviews = allReviews
+                            completion()
+                        }
                     }
+                    
                 } else {
                     print("Failed to fetch user data from Firebase.")
                 }

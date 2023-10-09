@@ -169,14 +169,42 @@ struct ReviewsView: View {
                             .padding(.vertical, 10)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         
+//                        Button("Submit Review") {
+//                            // Use the bookedEvent directly without setting selectedEvent
+//                            reviewsViewModel.submitReview(bookedEvent: bookedEvent, reviewText: reviewTexts[bookedEvent.id] ?? "") {
+//                                // Reload reviews for the current event after submitting
+//                                reviewsViewModel.fetchUniqueReviewsForEventFromCoreData(eventID: bookedEvent.eventID) { reviews in
+//                                    // Handle the fetched reviews
+//                                    DispatchQueue.main.async {
+//                                        reviewsViewModel.displayedReviews = reviews
+//                                    }
+//                                }
+//                            }
+//                        }
+                        
                         Button("Submit Review") {
                             // Use the bookedEvent directly without setting selectedEvent
                             reviewsViewModel.submitReview(bookedEvent: bookedEvent, reviewText: reviewTexts[bookedEvent.id] ?? "") {
+                                // Handle the completion within this block
+                                // For example, you can update UI, show an alert, etc.
+                                print("Review submitted successfully!")
+
                                 // Reload reviews for the current event after submitting
-                                reviewsViewModel.fetchUniqueReviewsForEventFromCoreData(eventID: bookedEvent.eventID) { reviews in
-                                    // Handle the fetched reviews
+                                reviewsViewModel.fetchUniqueReviewsForEventFromCoreData(eventID: bookedEvent.eventID) { uniqueReviews in
+                                    // Handle the fetched unique reviews
                                     DispatchQueue.main.async {
-                                        reviewsViewModel.displayedReviews = reviews
+                                        reviewsViewModel.displayedReviews = uniqueReviews
+                                        print("Displayed Reviews after fetching unique reviews:", reviewsViewModel.displayedReviews)
+
+                                        // Fetch all reviews after submitting
+                                        reviewsViewModel.fetchAllReviewsFromCoreData { allReviews in
+                                            // Handle the fetched all reviews
+                                            DispatchQueue.main.async {
+                                                print("All Reviews after fetching all reviews:", allReviews)
+                                                reviewsViewModel.displayedReviews = allReviews
+                                                // You can perform additional logic here if needed
+                                            }
+                                        }
                                     }
                                 }
                             }
