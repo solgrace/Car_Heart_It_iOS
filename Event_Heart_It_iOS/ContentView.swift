@@ -6,40 +6,65 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: LoginView()) {
-                    Text("Log In")
+                VStack(alignment: .center) {
+                    Text("Event Heart It ˙ᵕ˙")
+                        .font(.system(size: 40))
+                        .fontWeight(.bold)
                         .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+
+                    Text("locate events near you!")
+                        .font(.system(size: 20, weight: .bold, design: .default))
+                        .italic()
+                        .padding()
                 }
-                .padding()
+                .frame(maxWidth: .infinity)
+                .frame(maxHeight: .infinity)
+                .background(Color(red: 0.92, green: 0.87, blue: 0.78))
                 
-                NavigationLink(destination: SignupView()) {
-                    Text("Sign Up")
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                
+                VStack(alignment: .center, spacing: 0) {
+                    Spacer().frame(height: 60)
+                    
+                    NavigationLink(destination: LoginView()) {
+                        Text("Log In")
+                            .padding()
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .frame(width: UIScreen.main.bounds.width * 0.6, height: 65)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
+                    }
+                    .padding()
+                    
+                    NavigationLink(destination: SignupView()) {
+                        Text("Sign Up")
+                            .padding()
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .frame(width: UIScreen.main.bounds.width * 0.6, height: 65)
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
+                    }
+                    .padding()
+                    
+                    Spacer().frame(height: 190)
                 }
-                .padding()
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarBackButtonHidden(true)
             }
-            .navigationBarTitle("", displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
+            .frame(maxWidth: .infinity)
+            .frame(maxHeight: .infinity)
         }
         .navigationBarTitle("", displayMode: .inline) // Just added this to test if "<" will be removed
         .navigationBarBackButtonHidden(true) // Add this line to hide the back button
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
