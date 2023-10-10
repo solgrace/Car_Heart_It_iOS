@@ -203,12 +203,15 @@ class CoreDataManager {
     }
     
     // Check if the event is already booked
-    func isEventBooked(eventID: String) -> Bool {
+    func isEventBooked(eventID: String, userID: String) -> Bool {
         let context = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<BookedEvent> = BookedEvent.fetchRequest()
 
-        // Add a predicate to check if an event with the given eventID is booked
-        fetchRequest.predicate = NSPredicate(format: "eventID == %@", eventID)
+//        // Add a predicate to check if an event with the given eventID is booked
+//        fetchRequest.predicate = NSPredicate(format: "eventID == %@", eventID)
+        
+        // Add a predicate to check if an event with the given eventID is booked for the specific user
+        fetchRequest.predicate = NSPredicate(format: "eventID == %@ AND userID == %@", eventID, userID)
 
         do {
             print("Attempting to check if event is booked...")
@@ -229,7 +232,7 @@ class CoreDataManager {
     }
 
     // Function to store booked event in CoreData
-    func bookEventCoreData(event: EventData) -> Bool {
+    func bookEventCoreData(event: EventData, userID: String) -> Bool {
         let context = persistentContainer.viewContext
 
         guard let entity = NSEntityDescription.entity(forEntityName: "BookedEvent", in: context) else {
@@ -251,7 +254,7 @@ class CoreDataManager {
         bookedEvent.setValue(event.venue?.city, forKey:"eventCity")
         bookedEvent.setValue(event.venue?.state, forKey:"eventState")
         bookedEvent.setValue(event.venue?.country, forKey:"eventCountry")
-        bookedEvent.userID = Auth.auth().currentUser?.uid // Set the userID
+        bookedEvent.userID = userID // Set the userID
         // Add other properties as needed
         
         // Debug statements to see what was saved

@@ -152,16 +152,32 @@ class BookedEventsViewModel: ObservableObject {
     @Published var bookedEvents: [BookedEventStruct] = [] // Move it here
     
     private var databaseRef: DatabaseReference
-
+    private var userID: String // Add this property to store the userID
+//
+//    // Updated initializer to accept CoreDataManager
+//    init(coreDataManager: CoreDataManager) {
+//        self.coreDataManager = coreDataManager
+//
+//        // Set the user ID when initializing the view model
+//        if let userID = Auth.auth().currentUser?.uid {
+//            self.databaseRef = Database.database().reference().child("Users").child(userID).child("BookedEvents")
+//        } else {
+//            print("User not signed in")
+//            self.databaseRef = Database.database().reference()
+//        }
+//    }
+    
     // Updated initializer to accept CoreDataManager
     init(coreDataManager: CoreDataManager) {
         self.coreDataManager = coreDataManager
 
         // Set the user ID when initializing the view model
         if let userID = Auth.auth().currentUser?.uid {
+            self.userID = userID
             self.databaseRef = Database.database().reference().child("Users").child(userID).child("BookedEvents")
         } else {
             print("User not signed in")
+            self.userID = ""
             self.databaseRef = Database.database().reference()
         }
     }
@@ -187,7 +203,7 @@ class BookedEventsViewModel: ObservableObject {
         if let eventIDString = event.event_id {
             print("Checking if event with ID \(eventIDString) is already booked...")
             
-            if coreDataManager.isEventBooked(eventID: eventIDString) {
+            if coreDataManager.isEventBooked(eventID: eventIDString, userID: userID) {
                 // Event is already booked
                 let errorMessage = "Event is already booked."
                 print("Error: \(errorMessage)")
@@ -201,7 +217,7 @@ class BookedEventsViewModel: ObservableObject {
         // Example using Core Data:
         print("Attempting to book event...")
 
-        let isBookingSuccessful = coreDataManager.bookEventCoreData(event: event)
+        let isBookingSuccessful = coreDataManager.bookEventCoreData(event: event, userID: userID)
 
         if isBookingSuccessful {
             // Successful booking
