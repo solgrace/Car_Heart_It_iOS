@@ -78,7 +78,9 @@ class LoginViewModel {
         do {
             try Auth.auth().signOut()
             print("Firebase Authnetication has signed user out.")
+            
 //            bookedEventsViewModel.clearBookedEvents() // Clear booked events data
+            
             completion(true)
         } catch {
             print("Error signing out: \(error.localizedDescription)")

@@ -243,7 +243,7 @@ struct EventMapView: View {
                         }
                     
                 }
-                .padding()
+//                .padding()
                 .navigationTitle("")
                 .navigationBarHidden(true)
                 .tabItem {

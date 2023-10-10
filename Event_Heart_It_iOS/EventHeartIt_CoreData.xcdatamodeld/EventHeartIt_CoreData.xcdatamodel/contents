@@ -11,6 +11,7 @@
         <attribute name="eventName" optional="YES" attributeType="String"/>
         <attribute name="eventStartDate" optional="YES" attributeType="String"/>
         <attribute name="eventState" optional="YES" attributeType="String"/>
+        <attribute name="userID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="BookedEvents" representedClassName="BookedEvents" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>

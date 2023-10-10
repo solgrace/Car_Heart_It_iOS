@@ -171,6 +171,7 @@
 
 
 import CoreData
+import Firebase // For identifying current user's ID
 
 class CoreDataManager {
     static let shared = CoreDataManager()
@@ -210,7 +211,8 @@ class CoreDataManager {
             return false
         }
 
-        let bookedEvent = NSManagedObject(entity: entity, insertInto: context)
+//        let bookedEvent = NSManagedObject(entity: entity, insertInto: context)
+        let bookedEvent = NSManagedObject(entity: entity, insertInto: context) as! BookedEvent
 
         // Set properties of the BookedEvent entity
         bookedEvent.setValue(event.event_id, forKey: "eventID")
@@ -223,7 +225,21 @@ class CoreDataManager {
         bookedEvent.setValue(event.venue?.city, forKey:"eventCity")
         bookedEvent.setValue(event.venue?.state, forKey:"eventState")
         bookedEvent.setValue(event.venue?.country, forKey:"eventCountry")
+        bookedEvent.userID = Auth.auth().currentUser?.uid // Set the userID
         // Add other properties as needed
+        
+        // Debug statements to see what was saved
+        print("Event ID: \(event.event_id)")
+        print("Event Name: \(event.name)")
+        print("Event Link: \(event.link)")
+        print("Event Start Time: \(event.start_time)")
+        print("Event End Time: \(event.end_time)")
+        print("Event is Virtual: \(event.is_virtual)")
+        print("Event Full Address: \(event.venue?.full_address ?? "N/A")")
+        print("Event City: \(event.venue?.city ?? "N/A")")
+        print("Event State: \(event.venue?.state ?? "N/A")")
+        print("Event Country: \(event.venue?.country ?? "N/A")")
+        print("User ID: \(bookedEvent.userID ?? "N/A")")
 
         saveContext() // Save the context after making changes
         print("Event booked in CoreData successfully")
@@ -234,13 +250,34 @@ class CoreDataManager {
     // Function to fetch past booked events from CoreData
     func fetchBookedEvents() -> [BookedEventStruct] {
         let context = persistentContainer.viewContext
+        var currentUserID: String?
         let fetchRequest: NSFetchRequest<BookedEvent> = BookedEvent.fetchRequest()
-
+        
+        // Filter by userID
+        if let userID = Auth.auth().currentUser?.uid {
+            currentUserID = userID
+            let predicate = NSPredicate(format: "userID == %@", currentUserID!)
+            print("Predicate set with userID: \(currentUserID ?? "N/A")")
+            
+            // Set the predicate to the fetch request
+            fetchRequest.predicate = predicate
+        } else {
+            print("Error: Could not retrieve userID.")
+        }
+        
         do {
             let result = try context.fetch(fetchRequest)
+            
+            // Debug statements to see what's fetched
+            print("Fetching booked events for user ID: \(currentUserID ?? "N/A")")
+            print("Fetched \(result.count) raw BookedEvent entities from CoreData")
 
             // Convert instances of BookedEvent to BookedEventStruct
             let events = result.map { bookedEvent -> BookedEventStruct in
+                print("Processing BookedEvent entity:")
+                print("Event ID: \(bookedEvent.eventID ?? "N/A")")
+                print("Event Name: \(bookedEvent.eventName ?? "N/A")")
+                
                 return BookedEventStruct(
                     eventID: bookedEvent.eventID ?? "",
                     eventName: bookedEvent.eventName ?? "",
@@ -335,9 +372,31 @@ class CoreDataManager {
     
     
     
-//    // Clears bookedEvents data after user logs out:
+    // Clears bookedEvents data after user logs out:
+
+    // Function to clear booked events data from CoreData
+//    func clearBookedEventsFromCoreData(completion: @escaping () -> Void) {
+//        let context = persistentContainer.viewContext
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookedEvent")
 //
-//    // Function to clear booked events data from CoreData
+//        do {
+//            let result = try context.fetch(fetchRequest)
+//
+//            for case let bookedEvent as NSManagedObject in result {
+//                context.delete(bookedEvent)
+//            }
+//
+//            // Save the context after making changes
+//            saveContext()
+//            print("Booked events cleared from CoreData successfully")
+//
+//            // Call the completion handler once events are cleared
+//            completion()
+//        } catch {
+//            print("Failed to clear booked events from CoreData: \(error.localizedDescription)")
+//        }
+//    }
+    
 //    func clearBookedEventsFromCoreData() {
 //        let context = persistentContainer.viewContext
 //        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookedEvent")

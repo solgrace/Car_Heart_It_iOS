@@ -317,9 +317,38 @@ class BookedEventsViewModel: ObservableObject {
     
     
     
-//    // Clears bookedEvents data after user logs out:
+    // Clears bookedEvents data after user logs out:
+
+    // Function to clear booked events data
+//    func clearBookedEvents() {
+//        // Check if the user is signed in
+//        if let currentUser = Auth.auth().currentUser {
+//            print("User is signed in. UserID: \(currentUser.uid)")
 //
-//    // Function to clear booked events data
+//            self.bookedEvents = []  // Clear the array
+//            print("After clearing self.bookedEvents: \(self.bookedEvents)")
+//
+//            // Clear the data in CoreData
+//            coreDataManager.clearBookedEventsFromCoreData {
+//                // This closure will be executed after events are cleared
+//                print("Events cleared from CoreData successfully")
+//            }
+//        } else {
+//            print("User not signed in")
+//        }
+//    }
+    
+//    func clearBookedEvents() {
+//        self.bookedEvents = []  // Clear the array
+//        print("After clearing self.bookedEvents: \(self.bookedEvents)")
+//
+//        // Clear the data in CoreData
+//        coreDataManager.clearBookedEventsFromCoreData {
+//            // This closure will be executed after events are cleared
+//            print("Events cleared from CoreData successfully")
+//        }
+//    }
+    
 //    func clearBookedEvents() {
 //        self.bookedEvents = []  // Clear the array
 //

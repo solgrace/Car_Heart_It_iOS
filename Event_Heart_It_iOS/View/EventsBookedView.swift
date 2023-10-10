@@ -133,6 +133,7 @@
 
 // USING FIREBASE:
 import SwiftUI
+import Firebase
 
 struct EventsBookedView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -190,9 +191,16 @@ struct EventsBookedView: View {
             .listRowSeparator(.hidden)
         }
         .onAppear {
-            // Fetch past booked events when the view appears
-            bookedEventsViewModel.getBookedEvents {
-                // This is the completion handler, and you can do something if needed
+            // Check if the user is signed in
+            if let currentUser = Auth.auth().currentUser {
+                print("User is signed in. Fetching booked events...")
+
+                // Fetch past booked events when the view appears
+                bookedEventsViewModel.getBookedEvents {
+                    // This is the completion handler, and you can do something if needed
+                }
+            } else {
+                print("User is not signed in")
             }
         }
         .navigationBarItems(leading: Button("Back") {
