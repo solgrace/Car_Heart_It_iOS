@@ -205,6 +205,7 @@ struct EventMapView: View {
     let loginViewModel = LoginViewModel()
     @State private var isLoggedOut = false
     
+//    // Create an instance of CoreDataManager
 //    let coreDataManager = CoreDataManager.shared
 
     var body: some View {
@@ -213,12 +214,16 @@ struct EventMapView: View {
                 VStack {
                     HStack {
                         Spacer()
+                        
                         Button(action: {
                             // Perform log out action here
                             loginViewModel.logout { success in
                                 if success {
                                     print("Log out successful.")
                                     isLoggedOut = true
+                                    
+//                                    // TO BE COMMENTED OUT. DELETING ALL COREDATA DATA FOR PURPOSES OF TESTING THE APP FRESH WITH NO PREVIOUS DATA.
+//                                    CoreDataManager.shared.deleteAllData()
                                 } else {
                                     // Handle the case where logout failed
                                     print("Failed to log out.")
@@ -227,6 +232,8 @@ struct EventMapView: View {
                         }) {
                             Text("Log Out")
                         }
+                        
+                        Spacer()
                     }
                     
                     MapViewContainer(userLocation: $locationManager.userLocation, events: events)

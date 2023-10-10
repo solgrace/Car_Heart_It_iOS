@@ -74,6 +74,7 @@ struct EventData: Decodable, Identifiable {
         language = try container.decodeIfPresent(String.self, forKey: .language)
         
         // Use some fixed data or logic to generate a consistent UUID. This UUID will remain the same everytime the app re-runs.
+        // IS THE BELOW EVEN NEEDED?
         let fixedDataForUUID = "\(name)\(event_id ?? "")" 
         id = UUID(uuidString: fixedDataForUUID) ?? UUID()
     }

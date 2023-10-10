@@ -190,7 +190,7 @@ struct EventsBookedView: View {
             }
             .listRowSeparator(.hidden)
         }
-        .onAppear {
+        .onAppear {            
             // Check if the user is signed in
             if let currentUser = Auth.auth().currentUser {
                 print("User is signed in. Fetching booked events...")

@@ -13,6 +13,7 @@ struct SignupView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var signupError = ""
+    @State private var isSignedUp = false // Track signup status
     
     // Create an instance of SignupViewModel
     let signupViewModel = SignupViewModel()
@@ -50,6 +51,11 @@ struct SignupView: View {
             Text(signupError)
                 .foregroundColor(.red)
                 .padding()
+            
+            // Use NavigationLink to navigate to EventMapView when signed up
+            NavigationLink(destination: EventMapView(), isActive: $isSignedUp) {
+                EmptyView()
+            }
         }
         .padding()
         .navigationBarTitle("", displayMode: .inline)
@@ -80,7 +86,11 @@ struct SignupView: View {
             if success {
                 // Signup was successful
                 print("Signup successful from SignupView")
+                
                 // You can navigate to another view or perform any other action here
+                
+                // Set isSignedUp to true to trigger navigation
+                isSignedUp = true
             } else {
                 // Signup failed, display an error message
                 signupError = errorMessage ?? "Signup failed"

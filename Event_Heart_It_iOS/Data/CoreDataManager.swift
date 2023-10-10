@@ -441,5 +441,28 @@ class CoreDataManager {
 //            print("Failed to clear booked events from CoreData: \(error.localizedDescription)")
 //        }
 //    }
+    
+    
+    
+    
+    
+//    // TO BE COMMENTED OUT. DELETING ALL COREDATA DATA FOR PURPOSES OF TESTING THE APP FRESH WITH NO PREVIOUS DATA.
+//    func deleteAllData() {
+//        let entityNames = ["BookedEvent", "BookedEvents", "CoreDataUser", "Review"] // Replace with your actual entity names
+//
+//        for entityName in entityNames {
+//            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
+//            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//
+//            do {
+//                try persistentContainer.viewContext.execute(deleteRequest)
+//                try persistentContainer.viewContext.save()
+//
+//                print("Successfully deleted ALL data from entity: \(entityName)")
+//            } catch {
+//                print("Failed to delete ALL data from entity \(entityName): \(error)")
+//            }
+//        }
+//    }
 
 }
