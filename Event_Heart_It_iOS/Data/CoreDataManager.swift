@@ -201,6 +201,32 @@ class CoreDataManager {
             }
         }
     }
+    
+    // Check if the event is already booked
+    func isEventBooked(eventID: String) -> Bool {
+        let context = persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<BookedEvent> = BookedEvent.fetchRequest()
+
+        // Add a predicate to check if an event with the given eventID is booked
+        fetchRequest.predicate = NSPredicate(format: "eventID == %@", eventID)
+
+        do {
+            print("Attempting to check if event is booked...")
+            
+            let result = try context.fetch(fetchRequest)
+            
+            if !result.isEmpty {
+                print("Event with ID \(eventID) is booked.")
+                return true  // If result is not empty, the event is booked
+            } else {
+                print("Event with ID \(eventID) is not booked.")
+                return false
+            }
+        } catch {
+            print("Failed to check if event is booked: \(error.localizedDescription)")
+            return false
+        }
+    }
 
     // Function to store booked event in CoreData
     func bookEventCoreData(event: EventData) -> Bool {

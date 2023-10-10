@@ -8,7 +8,7 @@
 import Foundation
 
 struct BookedEventStruct: Identifiable, Equatable {
-    let id = UUID()  // Add a property that uniquely identifies the instance
+    let id: UUID  // Use eventID as id
     let eventID: String
     let eventName: String
     let eventLink: String
@@ -21,6 +21,7 @@ struct BookedEventStruct: Identifiable, Equatable {
     let eventCountry: String
 
     init(eventID: String, eventName: String, eventLink: String, eventStartDate: TimeInterval, eventEndDate: TimeInterval, eventIsVirtual: Bool, eventFullAddress: String, eventCity: String, eventState: String, eventCountry: String) {
+        self.id = UUID(uuidString: eventID) ?? UUID()
         self.eventID = eventID
         self.eventName = eventName
         self.eventLink = eventLink

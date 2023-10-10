@@ -173,6 +173,30 @@ class BookedEventsViewModel: ObservableObject {
     // Using CoreData:
     func bookEvent(event: EventData, completion: @escaping (Bool, String?) -> Void) {
         // Implement logic to book the event and store it in Core Data
+        
+//        // Check if the event is already booked
+//        if let eventIDString = event.event_id, let eventID = UUID(uuidString: eventIDString), coreDataManager.isEventBooked(eventID: eventID) {
+//            // Event is already booked
+//            let errorMessage = "Event is already booked."
+//            print("Error: \(errorMessage)")
+//            completion(false, errorMessage)
+//            return
+//        }
+        
+        // Check if the event is already booked
+        if let eventIDString = event.event_id {
+            print("Checking if event with ID \(eventIDString) is already booked...")
+            
+            if coreDataManager.isEventBooked(eventID: eventIDString) {
+                // Event is already booked
+                let errorMessage = "Event is already booked."
+                print("Error: \(errorMessage)")
+                completion(false, errorMessage)
+                return
+            } else {
+                print("Event with ID \(eventIDString) is not booked. Proceeding to book...")
+            }
+        } 
 
         // Example using Core Data:
         print("Attempting to book event...")
