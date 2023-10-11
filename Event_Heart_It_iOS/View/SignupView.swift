@@ -21,43 +21,88 @@ struct SignupView: View {
     var body: some View {
         VStack {
             Text("Signup")
-                .font(.largeTitle)
+                .font(.system(size: 70))
+                .fontWeight(.bold)
                 .padding()
-
-            TextField("First Name", text: $firstName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            TextField("Last Name", text: $lastName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            TextField("Email", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            SecureField("Password", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            Button(action: {
-                // Call your signup logic here using SignupViewModel
-                signup()
-            }) {
-                Text("Signup")
+                .foregroundColor(.white)
+                .padding(.trailing, 105)
+            
+            Spacer().frame(height: 50)
+            
+            ZStack {
+                // Blue background sheet
+                Color.white.opacity(0.2) // Adjust opacity to control the darkness
+                    .frame(width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 1.7) // Set width and height
+                    .cornerRadius(10)
+                
+                VStack {
+                    Spacer().frame(height: 10)
+                    
+                    TextField("      First Name", text: $firstName)
+                        .fontWeight(.bold)
+                        .frame(width: 280, height: 60)
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                    
+                    Spacer().frame(height: 30)
+                    
+                    TextField("      Last Name", text: $lastName)
+                        .fontWeight(.bold)
+                        .frame(width: 280, height: 60)
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                    
+                    Spacer().frame(height: 30)
+                    
+                    TextField("      Email", text: $email)
+                        .fontWeight(.bold)
+                        .frame(width: 280, height: 60)
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                    
+                    Spacer().frame(height: 30)
+                    
+                    SecureField("      Password", text: $password)
+                        .fontWeight(.bold)
+                        .frame(width: 280, height: 60)
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                    
+                    Spacer().frame(height: 30)
+                    
+                    Button(action: {
+                        // Call your signup logic here using SignupViewModel
+                        signup()
+                    }) {
+                        Text("Signup")
+                    }
+                    .fontWeight(.bold)
+                    .frame(width: 102, height: 55)
+                    .background(Color.black)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .padding(.trailing, 180)
+                }
+                
+                Text(signupError)
+                    .foregroundColor(.red)
+                    .padding()
             }
-            .padding()
-
-            Text(signupError)
-                .foregroundColor(.red)
-                .padding()
             
             // Use NavigationLink to navigate to EventMapView when signed up
             NavigationLink(destination: EventMapView(), isActive: $isSignedUp) {
                 EmptyView()
             }
+            
+            Spacer().frame(height: 30)
         }
-        .padding()
+        .frame(maxWidth: .infinity)
+        .frame(maxHeight: .infinity)
+        .background(Color(red: 0.0706, green: 0, blue: 0.4784))
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
     }

@@ -66,13 +66,15 @@ struct LoginView: View {
                         .cornerRadius(10)
                         .padding(.trailing, 180)
                     }
-                }
                 
+                    
+                    
+                Spacer().frame(height: 10)
 
-                
                 Text(loginError)
                     .foregroundColor(.red)
                     .padding()
+                }
                 
 
                 

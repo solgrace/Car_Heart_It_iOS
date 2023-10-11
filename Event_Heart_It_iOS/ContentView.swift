@@ -70,3 +70,9 @@ struct ContentView: View {
         .navigationBarBackButtonHidden(true) // Add this line to hide the back button
     }
 }
+
+struct Previews_ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
