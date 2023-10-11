@@ -16,15 +16,17 @@ struct ContentView: View {
                         .font(.system(size: 40))
                         .fontWeight(.bold)
                         .padding()
+                        .foregroundColor(.white)
 
                     Text("locate events near you!")
                         .font(.system(size: 20, weight: .bold, design: .default))
                         .italic()
                         .padding()
+                        .foregroundColor(.white)
                 }
                 .frame(maxWidth: .infinity)
                 .frame(maxHeight: .infinity)
-                .background(Color(red: 0.92, green: 0.87, blue: 0.78))
+                .background(Color(red: 0.0706, green: 0, blue: 0.4784))
                 
                 
                 VStack(alignment: .center, spacing: 0) {
