@@ -216,11 +216,11 @@ struct EventMapView: View {
                     VStack {
                         HStack {
                             Text("Event Map")
-                                .font(.system(size: 33))
+                                .font(.system(size: 24))
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                             
-                            Spacer().frame(width: 83)
+                            Spacer().frame(width: 120)
                             
                             Button(action: {
                                 // Perform log out action here
@@ -239,8 +239,9 @@ struct EventMapView: View {
                             }) {
                                 Text("Log Out")
                             }
+                            .font(.system(size: 15))
                             .fontWeight(.bold)
-                            .frame(width: 90, height: 40)
+                            .frame(width: 80, height: 30)
                             .background(Color.white.opacity(0.4))
                             .foregroundColor(.black)
                             .cornerRadius(10)

@@ -198,14 +198,21 @@ struct EachEventView: View {
 
                     // Event Name
                     VStack(alignment: .leading, spacing: 4) {
+                        Spacer().frame(height: 10)
+                        
                         Text("Event Name:")
                             .font(.body)
                             .foregroundColor(.gray)
                         
                         Text("\(event.name)")
                             .font(.title)
+                        
+                        Spacer().frame(height: 10)
                     }
-                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color(red: 0.0706, green: 0, blue: 0.4784))
+                    
+                    Spacer().frame(height: 10)
                     
                     // Event Description
                     VStack(alignment: .leading, spacing: 4) {
@@ -215,7 +222,7 @@ struct EachEventView: View {
                         Text("\(event.description ?? "N/A")")
                             .font(.body)
                     }
-                    .padding()
+//                    .padding()
                     
                     // Event Is Virtual
                     VStack(alignment: .leading, spacing: 4) {
@@ -225,7 +232,7 @@ struct EachEventView: View {
                         Text("\(event.is_virtual.map(String.init(describing:)) ?? "N/A")")
                             .font(.body)
                     }
-                    .padding()
+//                    .padding()
                     
                     // Event Start Time
                     VStack(alignment: .leading, spacing: 4) {
@@ -235,7 +242,7 @@ struct EachEventView: View {
                         Text("\(event.start_time ?? "N/A")")
                             .font(.body)
                     }
-                    .padding()
+//                    .padding()
                     
                     // Event End Time
                     VStack(alignment: .leading, spacing: 4) {
@@ -245,7 +252,7 @@ struct EachEventView: View {
                         Text("\(event.end_time ?? "N/A")")
                             .font(.body)
                     }
-                    .padding()
+//                    .padding()
                     
                     // Event Link
                     VStack(alignment: .leading, spacing: 4) {
@@ -255,7 +262,7 @@ struct EachEventView: View {
                         Text("\(event.link ?? "N/A")")
                             .font(.body)
                     }
-                    .padding()
+//                    .padding()
                     
                     // Event Venue
                     if let venue = event.venue {
@@ -307,33 +314,35 @@ struct EachEventView: View {
                     
                     // Add more sections for other event details
                     
-                    // Book Button
-                    Button(action: {
-                        // Toggle the booking status
-                        isBooked.toggle()
-
-                        // Call the bookEvent function in your BookedEventsViewModel instance
-                        if isBooked {
-                            bookedEventsViewModel.bookEvent(event: event) { success, errorMessage in
-                                if success {
-                                    // Handle successful booking
-                                    print("Event booked successfully!")
-                                } else {
-                                    // Handle booking failure
-                                    print("Failed to book event. Error: \(errorMessage ?? "Unknown error")")
+                    VStack {
+                        // Book Button
+                        Button(action: {
+                            // Toggle the booking status
+                            isBooked.toggle()
+                            
+                            // Call the bookEvent function in your BookedEventsViewModel instance
+                            if isBooked {
+                                bookedEventsViewModel.bookEvent(event: event) { success, errorMessage in
+                                    if success {
+                                        // Handle successful booking
+                                        print("Event booked successfully!")
+                                    } else {
+                                        // Handle booking failure
+                                        print("Failed to book event. Error: \(errorMessage ?? "Unknown error")")
+                                    }
                                 }
+                            } else {
+                                // Handle unbooking if needed
                             }
-                        } else {
-                            // Handle unbooking if needed
+                        }) {
+                            Text(isBooked ? "Booked!" : "Book")
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(isBooked ? Color.blue : Color.black)
+                                .cornerRadius(8)
                         }
-                    }) {
-                        Text(isBooked ? "Booked!" : "Book")
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(isBooked ? Color.green : Color.blue)
-                            .cornerRadius(8)
+                        .padding(.bottom, 20)
                     }
-                    .padding(.bottom, 20)
 
                 }
                 .padding([.horizontal, .bottom], 15) // Adds horizontal (left and right) and bottom padding

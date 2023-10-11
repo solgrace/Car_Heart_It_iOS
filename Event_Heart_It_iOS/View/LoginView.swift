@@ -20,11 +20,11 @@ struct LoginView: View {
         NavigationView { // Wrap your view in a NavigationView
             VStack {
                 Text("Login")
-                    .font(.system(size: 70))
+                    .font(.system(size: 50))
                     .fontWeight(.bold)
                     .padding()
                     .foregroundColor(.white)
-                    .padding(.trailing, 140)
+                    .padding(.trailing, 200)
                 
                 Spacer().frame(height: 50)
                 
@@ -35,17 +35,17 @@ struct LoginView: View {
                         .cornerRadius(10)
                     
                     VStack {
-                        TextField("      Email", text: $email)
-                            .fontWeight(.bold)
+                        TextField(" Email", text: $email)
+                            .padding()
                             .frame(width: 280, height: 60)
                             .background(Color.white)
                             .foregroundColor(.black)
                             .cornerRadius(10)
-                        
+                                                
                         Spacer().frame(height: 30)
                         
-                        SecureField("      Password", text: $password)
-                            .fontWeight(.bold)
+                        SecureField(" Password", text: $password)
+                            .padding()
                             .frame(width: 280, height: 60)
                             .background(Color.white)
                             .foregroundColor(.black)
@@ -84,6 +84,10 @@ struct LoginView: View {
                 NavigationLink(destination: EventMapView(), isActive: $isLogged) {
                     EmptyView()
                 }
+                
+                
+                
+                Spacer().frame(height: 60)
             }
             .frame(maxWidth: .infinity)
             .frame(maxHeight: .infinity)
@@ -135,7 +139,7 @@ struct LoginView: View {
     
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct Previews_LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
     }

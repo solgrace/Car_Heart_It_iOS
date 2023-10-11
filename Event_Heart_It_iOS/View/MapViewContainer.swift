@@ -508,21 +508,26 @@ struct EventAnnotationView: View {
         VStack {
             VStack {
                 Text(event.name)
-                    .font(.headline)
+                    .font(.system(size: 20))
+                    .fontWeight(.bold)
                     .foregroundColor(.black)
-                    .padding(.bottom, 5)
-                    .frame(maxWidth: .infinity)
+//                    .frame(maxWidth: .infinity, alignment: .center)  // Trying to align text to centre
+                
+                Spacer().frame(height: 18)
 
                 Button(action: {
                     print("Button tapped. Presenting EachEventView.")
                     isPresentingEachEventView = true
                 }) {
                     Text("Attend")
-                        .foregroundColor(.blue)
-                        .padding(8)
-                        .background(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
                 }
-                .buttonStyle(PlainButtonStyle())
+//                .padding(5)
+                .font(.body)
+                .fontWeight(.bold)
+                .frame(width: 82, height: 42)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
                 .fullScreenCover(isPresented: $isPresentingEachEventView) {
                     EachEventView(event: event)
                         .onAppear {
@@ -533,14 +538,15 @@ struct EventAnnotationView: View {
                         }
                 }
             }
-            .padding(30)
+            .padding(5)
+            .frame(width: 150, height: 150)
             .background(Color.white)
             .cornerRadius(8)
             .shadow(radius: 5)
 
             Image("RedPin")
                 .resizable()
-                .frame(width: 70, height: 70)
+                .frame(width: 65, height: 65)
                 .offset(x: 0, y: 0)
         }
     }

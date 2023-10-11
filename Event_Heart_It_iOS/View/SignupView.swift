@@ -21,11 +21,11 @@ struct SignupView: View {
     var body: some View {
         VStack {
             Text("Signup")
-                .font(.system(size: 70))
+                .font(.system(size: 50))
                 .fontWeight(.bold)
                 .padding()
                 .foregroundColor(.white)
-                .padding(.trailing, 105)
+                .padding(.trailing, 165)
             
             Spacer().frame(height: 50)
             
@@ -38,8 +38,8 @@ struct SignupView: View {
                 VStack {
                     Spacer().frame(height: 10)
                     
-                    TextField("      First Name", text: $firstName)
-                        .fontWeight(.bold)
+                    TextField(" First Name", text: $firstName)
+                        .padding()
                         .frame(width: 280, height: 60)
                         .background(Color.white)
                         .foregroundColor(.black)
@@ -47,8 +47,8 @@ struct SignupView: View {
                     
                     Spacer().frame(height: 30)
                     
-                    TextField("      Last Name", text: $lastName)
-                        .fontWeight(.bold)
+                    TextField(" Last Name", text: $lastName)
+                        .padding()
                         .frame(width: 280, height: 60)
                         .background(Color.white)
                         .foregroundColor(.black)
@@ -56,8 +56,8 @@ struct SignupView: View {
                     
                     Spacer().frame(height: 30)
                     
-                    TextField("      Email", text: $email)
-                        .fontWeight(.bold)
+                    TextField(" Email", text: $email)
+                        .padding()
                         .frame(width: 280, height: 60)
                         .background(Color.white)
                         .foregroundColor(.black)
@@ -65,8 +65,8 @@ struct SignupView: View {
                     
                     Spacer().frame(height: 30)
                     
-                    SecureField("      Password", text: $password)
-                        .fontWeight(.bold)
+                    SecureField(" Password", text: $password)
+                        .padding()
                         .frame(width: 280, height: 60)
                         .background(Color.white)
                         .foregroundColor(.black)
@@ -98,7 +98,7 @@ struct SignupView: View {
                 EmptyView()
             }
             
-            Spacer().frame(height: 30)
+            Spacer().frame(height: 40)
         }
         .frame(maxWidth: .infinity)
         .frame(maxHeight: .infinity)
