@@ -232,6 +232,16 @@ class BookedEventsViewModel: ObservableObject {
             completion(false, errorMessage)
         }
     }
+    
+    
+    
+    // To check if event has already been booked before:
+    func isEventBooked(event: EventData) -> Bool {
+        let eventIDString = event.event_id ?? ""
+        return coreDataManager.isEventBooked(eventID: eventIDString, userID: userID)
+    }
+
+    
 
     // Function to update Firebase Realtime Database
     private func updateFirebaseDatabase(event: EventData, completion: @escaping (Bool, String?) -> Void) {

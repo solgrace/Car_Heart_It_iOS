@@ -186,18 +186,26 @@ struct EachEventView: View {
     @Environment(\.presentationMode) var presentationMode
     let event: EventData
     
-    @State private var isBooked = false
-    
     // Updated initialization to use CoreDataManager
     let bookedEventsViewModel = BookedEventsViewModel(coreDataManager: CoreDataManager.shared)
+    
+    @State private var isBooked: Bool
+
+    init(event: EventData) {
+        self.event = event
+        // Initialize isBooked based on the event's booking status
+        self._isBooked = State(initialValue: bookedEventsViewModel.isEventBooked(event: event))
+    }
+    
+
 
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading) {
 
                     // Event Name
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading) {
                         Spacer().frame(height: 10)
                         
                         Text("Event Name:")
@@ -215,7 +223,7 @@ struct EachEventView: View {
                     Spacer().frame(height: 10)
                     
                     // Event Description
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading) {
                         Text("Description:")
                             .font(.headline)
                         
@@ -225,7 +233,7 @@ struct EachEventView: View {
 //                    .padding()
                     
                     // Event Is Virtual
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading) {
                         Text("Is Virtual:")
                             .font(.headline)
                         
@@ -235,7 +243,7 @@ struct EachEventView: View {
 //                    .padding()
                     
                     // Event Start Time
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading) {
                         Text("Start Time:")
                             .font(.headline)
                         
@@ -245,7 +253,7 @@ struct EachEventView: View {
 //                    .padding()
                     
                     // Event End Time
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading) {
                         Text("End Time:")
                             .font(.headline)
                         
@@ -255,7 +263,7 @@ struct EachEventView: View {
 //                    .padding()
                     
                     // Event Link
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading) {
                         Text("Link:")
                             .font(.headline)
                         
@@ -266,7 +274,7 @@ struct EachEventView: View {
                     
                     // Event Venue
                     if let venue = event.venue {
-                        VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading) {
                             Text("Venue:")
                                 .font(.title2)
                                 .bold()
@@ -275,7 +283,7 @@ struct EachEventView: View {
                                 .frame(height: 10)
                             
                             // Venue Subtypes
-                            VStack(alignment: .leading, spacing: 4) {
+                            VStack(alignment: .leading) {
                                 Text("Subtypes:")
                                     .font(.headline)
                                 
@@ -317,28 +325,41 @@ struct EachEventView: View {
                     VStack {
                         // Book Button
                         Button(action: {
-                            // Toggle the booking status
-                            isBooked.toggle()
-                            
-                            // Call the bookEvent function in your BookedEventsViewModel instance
-                            if isBooked {
-                                bookedEventsViewModel.bookEvent(event: event) { success, errorMessage in
-                                    if success {
-                                        // Handle successful booking
-                                        print("Event booked successfully!")
-                                    } else {
-                                        // Handle booking failure
-                                        print("Failed to book event. Error: \(errorMessage ?? "Unknown error")")
-                                    }
+                            bookedEventsViewModel.bookEvent(event: event) { success, errorMessage in
+                                if success {
+                                    // Handle successful booking
+                                    print("Event booked successfully!")
+                                    
+                                    // Toggle the booking status
+                                    isBooked.toggle()
+                                } else {
+                                    // Handle booking failure
+                                    print("Failed to book event. Error: \(errorMessage ?? "Unknown error")")
                                 }
-                            } else {
-                                // Handle unbooking if needed
                             }
+                            
+//                            // Call the bookEvent function in your BookedEventsViewModel instance
+//                            if isBooked {
+//                                bookedEventsViewModel.bookEvent(event: event) { success, errorMessage in
+//                                    if success {
+//                                        // Handle successful booking
+//                                        print("Event booked successfully!")
+//
+//                                        // Toggle the booking status
+//                                        isBooked.toggle()
+//                                    } else {
+//                                        // Handle booking failure
+//                                        print("Failed to book event. Error: \(errorMessage ?? "Unknown error")")
+//                                    }
+//                                }
+//                            } else {
+//                                // Handle unbooking if needed
+//                            }
                         }) {
-                            Text(isBooked ? "Booked!" : "Book")
+                            Text(isBooked ? "This Event Has Already Been Booked!" : "Book")
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(isBooked ? Color.blue : Color.black)
+                                .background(isBooked ? Color.gray : Color.blue) // Use different colors for booked and not booked states
                                 .cornerRadius(8)
                         }
                         .padding(.bottom, 20)
