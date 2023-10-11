@@ -212,29 +212,43 @@ struct EventMapView: View {
         NavigationView {
             TabView {
                 VStack {
-                    HStack {
-                        Spacer()
-                        
-                        Button(action: {
-                            // Perform log out action here
-                            loginViewModel.logout { success in
-                                if success {
-                                    print("Log out successful.")
-                                    isLoggedOut = true
-                                    
-//                                    // TO BE COMMENTED OUT. DELETING ALL COREDATA DATA FOR PURPOSES OF TESTING THE APP FRESH WITH NO PREVIOUS DATA.
-//                                    CoreDataManager.shared.deleteAllData()
-                                } else {
-                                    // Handle the case where logout failed
-                                    print("Failed to log out.")
+                    
+                    VStack {
+                        HStack {
+                            Text("Event Map")
+                                .font(.system(size: 33))
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            
+                            Spacer().frame(width: 83)
+                            
+                            Button(action: {
+                                // Perform log out action here
+                                loginViewModel.logout { success in
+                                    if success {
+                                        print("Log out successful.")
+                                        isLoggedOut = true
+                                        
+                                        //                                    // TO BE COMMENTED OUT. DELETING ALL COREDATA DATA FOR PURPOSES OF TESTING THE APP FRESH WITH NO PREVIOUS DATA.
+                                        //                                    CoreDataManager.shared.deleteAllData()
+                                    } else {
+                                        // Handle the case where logout failed
+                                        print("Failed to log out.")
+                                    }
                                 }
+                            }) {
+                                Text("Log Out")
                             }
-                        }) {
-                            Text("Log Out")
+                            .fontWeight(.bold)
+                            .frame(width: 90, height: 40)
+                            .background(Color.white.opacity(0.4))
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
                         }
                         
-                        Spacer()
+                        Spacer().frame(height: 15)
                     }
+
                     
                     MapViewContainer(userLocation: $locationManager.userLocation, events: events)
                         .onAppear {
@@ -249,22 +263,28 @@ struct EventMapView: View {
                             fetchEventsNearUserLocation()
                         }
                     
+                    
+                    Spacer().frame(height: 15)
+                    
                 }
-//                .padding()
+                .background(Color(red: 0.0706, green: 0, blue: 0.4784))
                 .navigationTitle("")
                 .navigationBarHidden(true)
                 .tabItem {
                     Label("Events", systemImage: "map.fill")
                 }
+                .foregroundColor(.white)
                 
                 EventsBookedView()
                     .tabItem {
                         Label("Booked", systemImage: "book.fill")
+                            .foregroundColor(.white)
                     }
-
+                
                 ReviewsView()
                     .tabItem {
                         Label("Reviews", systemImage: "star.fill")
+                            .foregroundColor(.white)
                     }
                 
 //                NavigationLink(destination: ReviewsView()) {
@@ -273,6 +293,11 @@ struct EventMapView: View {
 //                .tabItem {
 //                    Label("Reviews", systemImage: "star.fill")
 //                }
+            }
+            .accentColor(.white)
+            .onAppear {
+                // Set the color for unselected tab items
+                UITabBar.appearance().unselectedItemTintColor = UIColor(white: 1, alpha: 0.5)
             }
         }
         // Navigate to ContentView when isLoggedOut is true
@@ -309,4 +334,10 @@ struct EventMapView: View {
             .store(in: &cancellables)
     }
 
+}
+
+struct Previews_EventMapView_Previews: PreviewProvider {
+    static var previews: some View {
+        EventMapView()
+    }
 }
