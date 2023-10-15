@@ -74,7 +74,7 @@ struct ContentView: View {
 }
 
 
-
+//// Original version not adhering to lanscape mode
 //struct ContentView: View {
 //    var body: some View {
 //        NavigationView {
