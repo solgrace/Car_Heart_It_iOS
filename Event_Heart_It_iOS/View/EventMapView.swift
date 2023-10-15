@@ -56,8 +56,8 @@ struct EventMapView: View {
                                         print("Log out successful.")
                                         isLoggedOut = true
                                         
-                                        //                                    // TO BE COMMENTED OUT. DELETING ALL COREDATA DATA FOR PURPOSES OF TESTING THE APP FRESH WITH NO PREVIOUS DATA.
-                                        //                                    CoreDataManager.shared.deleteAllData()
+//                                        // TO BE COMMENTED OUT. DELETING ALL COREDATA DATA FOR PURPOSES OF TESTING THE APP FRESH WITH NO PREVIOUS DATA.
+//                                        CoreDataManager.shared.deleteAllData()
                                     } else {
                                         // Handle the case where logout failed
                                         print("Failed to log out.")

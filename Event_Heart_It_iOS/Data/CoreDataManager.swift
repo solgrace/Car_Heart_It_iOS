@@ -201,5 +201,76 @@ class CoreDataManager {
         // Call the completion handler once all events are saved
         completion()
     }
+    
+    
+    
+    
+    
+    // Clears bookedEvents data after user logs out:
+
+    // Function to clear booked events data from CoreData
+//    func clearBookedEventsFromCoreData(completion: @escaping () -> Void) {
+//        let context = persistentContainer.viewContext
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookedEvent")
+//
+//        do {
+//            let result = try context.fetch(fetchRequest)
+//
+//            for case let bookedEvent as NSManagedObject in result {
+//                context.delete(bookedEvent)
+//            }
+//
+//            // Save the context after making changes
+//            saveContext()
+//            print("Booked events cleared from CoreData successfully")
+//
+//            // Call the completion handler once events are cleared
+//            completion()
+//        } catch {
+//            print("Failed to clear booked events from CoreData: \(error.localizedDescription)")
+//        }
+//    }
+    
+//    func clearBookedEventsFromCoreData() {
+//        let context = persistentContainer.viewContext
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookedEvent")
+//
+//        do {
+//            let result = try context.fetch(fetchRequest)
+//
+//            for case let bookedEvent as NSManagedObject in result {
+//                context.delete(bookedEvent)
+//            }
+//
+//            // Save the context after making changes
+//            saveContext()
+//            print("Booked events cleared from CoreData successfully")
+//        } catch {
+//            print("Failed to clear booked events from CoreData: \(error.localizedDescription)")
+//        }
+//    }
+    
+    
+    
+    
+    
+//    // TO BE COMMENTED OUT. DELETING ALL COREDATA DATA FOR PURPOSES OF TESTING THE APP FRESH WITH NO PREVIOUS DATA.
+//    func deleteAllData() {
+//        let entityNames = ["BookedEvent", "BookedEvents", "CoreDataUser", "Review"] // Replace with your actual entity names
+//
+//        for entityName in entityNames {
+//            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
+//            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//
+//            do {
+//                try persistentContainer.viewContext.execute(deleteRequest)
+//                try persistentContainer.viewContext.save()
+//
+//                print("Successfully deleted ALL data from entity: \(entityName)")
+//            } catch {
+//                print("Failed to delete ALL data from entity \(entityName): \(error)")
+//            }
+//        }
+//    }
 
 }
