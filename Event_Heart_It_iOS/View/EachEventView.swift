@@ -228,14 +228,14 @@ struct EachEventView: View {
                         Text("Description:")
                             .font(.headline)
                             .foregroundColor(.gray)
-                            .padding(.bottom, 5)
 
                         Text("\(event.description ?? "N/A")")
                             .font(.body)
                             .foregroundColor(.black)
                             .padding(.bottom, 15)
                     }
-                    .padding([.leading, .trailing], 25) // Add padding to the left and right
+                    .padding([.leading, .trailing], 20) // Add padding to the left and right
+//                    .padding(.horizontal, max(UIScreen.main.bounds.width - 12.5, 0))
 
 
 
@@ -395,7 +395,10 @@ struct EachEventView: View {
                         }) {
                             Text(isBooked ? "This Event Has Already Been Booked." : "Book")
                                 .foregroundColor(.white)
-                                .padding(.bottom, 25)
+                                .padding(.top, 20)     // Top padding
+                                .padding(.bottom, 20)  // Bottom padding
+                                .padding(.leading, 35) // Left padding
+                                .padding(.trailing, 35)// Right padding
                                 .background(isBooked ? Color.gray : Color.blue) // Use different colors for booked and not booked states
                                 .cornerRadius(8)
                         }

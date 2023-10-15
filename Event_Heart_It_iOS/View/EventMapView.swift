@@ -197,6 +197,21 @@ import _MapKit_SwiftUI
 
 // RENDERING EVENTS AS ANNOTATIONS ON MAP (CONTINUE WORKING BELOW)
 struct EventMapView: View {
+    
+    
+    
+    init() {
+        // Customize the UITabBar appearance
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(red: 0.0706, green: 0, blue: 0.4784, alpha: 1.0)
+
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
+
+
+            
     @ObservedObject var locationManager = LocationManager()
     @State private var events: [EventData] = [] // Store the retrieved events
     @State private var cancellables: Set<AnyCancellable> = [] // For managing Combine subscriptions
@@ -265,7 +280,7 @@ struct EventMapView: View {
                         }
                     
                     
-                    Spacer().frame(height: 15)
+//                    Spacer().frame(height: 15)  // Add top space to TabView
                     
                 }
                 .background(Color(red: 0.0706, green: 0, blue: 0.4784))
@@ -276,25 +291,22 @@ struct EventMapView: View {
                 }
                 .foregroundColor(.white)
                 
+                
                 EventsBookedView()
                     .tabItem {
                         Label("Booked", systemImage: "book.fill")
                             .foregroundColor(.white)
                     }
+
                 
                 ReviewsView()
                     .tabItem {
                         Label("Reviews", systemImage: "star.fill")
                             .foregroundColor(.white)
                     }
-                
-//                NavigationLink(destination: ReviewsView()) {
-//                    Label("Reviews", systemImage: "star.fill")
-//                }
-//                .tabItem {
-//                    Label("Reviews", systemImage: "star.fill")
-//                }
+    
             }
+            .background(Color(red: 0.0706, green: 0, blue: 0.4784))
             .accentColor(.white)
             .onAppear {
                 // Set the color for unselected tab items
