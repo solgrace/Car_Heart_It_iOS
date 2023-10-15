@@ -153,7 +153,7 @@ class BookedEventsViewModel: ObservableObject {
     
     private var databaseRef: DatabaseReference
     private var userID: String // Add this property to store the userID
-//
+
 //    // Updated initializer to accept CoreDataManager
 //    init(coreDataManager: CoreDataManager) {
 //        self.coreDataManager = coreDataManager
@@ -184,21 +184,10 @@ class BookedEventsViewModel: ObservableObject {
     
 
     
-    
-        
     // Using CoreData:
     func bookEvent(event: EventData, completion: @escaping (Bool, String?) -> Void) {
         // Implement logic to book the event and store it in Core Data
-        
-//        // Check if the event is already booked
-//        if let eventIDString = event.event_id, let eventID = UUID(uuidString: eventIDString), coreDataManager.isEventBooked(eventID: eventID) {
-//            // Event is already booked
-//            let errorMessage = "Event is already booked."
-//            print("Error: \(errorMessage)")
-//            completion(false, errorMessage)
-//            return
-//        }
-        
+                
         // Check if the event is already booked
         if let eventIDString = event.event_id {
             print("Checking if event with ID \(eventIDString) is already booked...")
@@ -291,15 +280,11 @@ class BookedEventsViewModel: ObservableObject {
 
     
     
-    
-    
     // Fetch past booked events from COREDATA:
     func getBookedEvents(completion: @escaping () -> Void) {
         self.bookedEvents = coreDataManager.fetchBookedEvents()
         completion()
     }
-    
-    
     
     
     
@@ -316,10 +301,6 @@ class BookedEventsViewModel: ObservableObject {
 
         // Fetch booked events from Firebase
         databaseRef.observeSingleEvent(of: .value, with: { snapshot in
-//            if let error = error {
-//                completion(false, "Failed to fetch booked events from Firebase")
-//                return
-//            }
 
             guard let eventsData = snapshot.value as? [String: [String: Any]] else {
                 print("Failed to fetch booked events from Firebase")

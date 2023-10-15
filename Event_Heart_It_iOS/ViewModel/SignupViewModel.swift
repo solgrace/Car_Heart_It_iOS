@@ -12,6 +12,7 @@ import FirebaseDatabase
 
 class SignupViewModel {
     
+    
 //    // Using CoreData:
 //    func signup(firstName: String, lastName: String, email: String, password: String, completion: @escaping (Bool, String?) -> Void) {
 //        // Check if a user with the provided email already exists
@@ -39,9 +40,6 @@ class SignupViewModel {
 //
 //        // You can include additional validation and error handling here
 //    }
-    
-    
-    
     
     
     // Using Firebase Authentication:

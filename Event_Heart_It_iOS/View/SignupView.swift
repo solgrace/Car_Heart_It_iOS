@@ -107,6 +107,7 @@ struct SignupView: View {
         .navigationBarBackButtonHidden(true)
     }
     
+    
 //    // Function to call the signup logic from SignupViewModel (using CoreData)
 //    private func signup() {
 //        signupViewModel.signup(firstName: firstName, lastName: lastName, email: email, password: password) { success, errorMessage in
@@ -120,9 +121,6 @@ struct SignupView: View {
 //            }
 //        }
 //    }
-    
-    
-    
     
     
     // Function to call the signup logic from SignupViewModel (using Firebase)

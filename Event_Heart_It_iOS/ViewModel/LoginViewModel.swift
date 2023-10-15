@@ -16,9 +16,6 @@ class LoginViewModel {
     let bookedEventsViewModel = BookedEventsViewModel(coreDataManager: CoreDataManager.shared)
 
     
-    
-    
-    
 //    // Using CoreData Version:
 //    func login(email: String, password: String, completion: @escaping (Bool, String?) -> Void) {
 //        // Implement login logic
@@ -36,10 +33,7 @@ class LoginViewModel {
 //            completion(false, "Invalid email or password")
 //        }
 //    }
-    
-    
-    
-    
+
     
     // Using Firebase Authentication:    
     func login(email: String, password: String, completion: @escaping (Bool, String?) -> Void) {

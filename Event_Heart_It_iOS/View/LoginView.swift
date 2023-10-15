@@ -76,9 +76,7 @@ struct LoginView: View {
                             .foregroundColor(.red)
                             .padding()
                     }
-                    
-                    
-                    
+
                     
                     
                     // Use NavigationLink to navigate to EventMapView when logged in
@@ -99,6 +97,7 @@ struct LoginView: View {
         .navigationBarBackButtonHidden(true)
     }
     
+    
 //    // Function to call the signup logic from SignupViewModel (using CoreData)
 //    private func login() {
 //        loginViewModel.login(email: email, password: password) { success, errorMessage in
@@ -116,9 +115,6 @@ struct LoginView: View {
 //            }
 //        }
 //    }
-    
-    
-    
     
     
     // Function to call the signup logic from SignupViewModel (using Firebase)

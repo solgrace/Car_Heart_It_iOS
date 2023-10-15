@@ -57,7 +57,6 @@ struct EventData: Decodable, Identifiable {
     // If you want to provide a default value for id
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-//        id = UUID()  // Generate random id
 
         // Decode other properties
         event_id = try container.decodeIfPresent(String.self, forKey: .event_id)
@@ -74,7 +73,6 @@ struct EventData: Decodable, Identifiable {
         language = try container.decodeIfPresent(String.self, forKey: .language)
         
         // Use some fixed data or logic to generate a consistent UUID. This UUID will remain the same everytime the app re-runs.
-        // IS THE BELOW EVEN NEEDED?
         let fixedDataForUUID = "\(name)\(event_id ?? "")" 
         id = UUID(uuidString: fixedDataForUUID) ?? UUID()
     }
