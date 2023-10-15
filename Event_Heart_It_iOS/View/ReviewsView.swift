@@ -67,12 +67,14 @@ struct ReviewsView: View {
                                 .padding(.vertical, 10)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                                         
-                            Button("Submit Review") {
+                            Button(action: {
                                 // Use the bookedEvent directly without setting selectedEvent
                                 reviewsViewModel.submitReview(bookedEvent: bookedEvent, reviewText: reviewTexts[bookedEvent.id] ?? "") {
                                     // Handle the completion within this block
                                     // For example, you can update UI, show an alert, etc.
                                     print("Review submitted successfully!")
+                                    
+                                    reviewText = ""
                                     
                                     // Reload reviews for the current event after submitting
                                     reviewsViewModel.fetchUniqueReviewsForEventFromCoreData(eventID: bookedEvent.eventID) { uniqueReviews in
@@ -93,6 +95,14 @@ struct ReviewsView: View {
                                         }
                                     }
                                 }
+                            }) {
+                                Text("Submit Review")
+                                    .font(.body)
+                                    .fontWeight(.bold)
+                                    .padding()
+                                    .background(Color.black)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
                             }
                             
                             // Display reviews for the current event
