@@ -74,8 +74,6 @@ struct ReviewsView: View {
                                     // For example, you can update UI, show an alert, etc.
                                     print("Review submitted successfully!")
                                     
-                                    reviewText = ""
-                                    
                                     // Reload reviews for the current event after submitting
                                     reviewsViewModel.fetchUniqueReviewsForEventFromCoreData(eventID: bookedEvent.eventID) { uniqueReviews in
                                         // Handle the fetched unique reviews
