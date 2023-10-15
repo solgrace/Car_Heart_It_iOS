@@ -25,7 +25,7 @@ struct LoginView: View {
                         .fontWeight(.bold)
                         .padding()
                         .foregroundColor(.white)
-                        .padding(.trailing, geometry.size.width * 0.2)
+                        .padding(.trailing, geometry.size.width * 0.5)
                     
                     Spacer().frame(height: 50)
                     
@@ -65,7 +65,7 @@ struct LoginView: View {
                             .background(Color.black)
                             .foregroundColor(.white)
                             .cornerRadius(10)
-                            .padding(.trailing, geometry.size.width * 0.18)
+                            .padding(.trailing, geometry.size.width * 0.4)
                         }
                         
                         
